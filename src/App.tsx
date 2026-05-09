@@ -16,10 +16,14 @@ export default function DJBarcelonaLanding() {
   const [formSent, setFormSent] = useState(false);
   const [formError, setFormError] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [resultOffset, setResultOffset] = useState(0);
 
   const formSubmitAction = "https://formsubmit.co/ajax/smextradivertion@gmail.com";
   const whatsappHref =
     "https://wa.me/34654685158?text=Hola%2C%20quiero%20pedir%20presupuesto%20para%20un%20evento.";
+
+  const heroImages = ["/dj-home-blue.jpg", "/servicio-discoteca.jpg"];
 
   const trustItems = [
     { label: "EVENTOS A MEDIDA", value: "Personalizado", text: "música adaptada a cada público" },
@@ -235,6 +239,25 @@ export default function DJBarcelonaLanding() {
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const rotatingResultImages = resultImages.length
+    ? resultImages.map((_, index) => resultImages[(index + resultOffset) % resultImages.length])
+    : [];
+
+  useEffect(() => {
+    const heroTimer = window.setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    const resultsTimer = window.setInterval(() => {
+      setResultOffset((prev) => (resultImages.length ? (prev + 1) % resultImages.length : 0));
+    }, 6500);
+
+    return () => {
+      window.clearInterval(heroTimer);
+      window.clearInterval(resultsTimer);
+    };
+  }, [heroImages.length, resultImages.length]);
+
   useEffect(() => {
     const upsertMeta = (selector: string, attributes: Record<string, string>) => {
       let element = document.head.querySelector(selector) as HTMLMetaElement | null;
@@ -443,14 +466,19 @@ export default function DJBarcelonaLanding() {
       <main>
         <section
           id="inicio"
-          className="relative overflow-hidden"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, rgba(15,23,42,0.48), rgba(15,23,42,0.24)), url('/dj-home-blue.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
+          className="relative overflow-hidden bg-slate-950"
         >
+          {heroImages.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt="DJ para eventos en Barcelona"
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+                index === currentHeroImage ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/55 via-slate-950/34 to-slate-950/28" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_28%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(125,211,252,0.08),transparent_32%)]" />
 
@@ -823,7 +851,7 @@ export default function DJBarcelonaLanding() {
               </div>
 
               <div className="grid auto-rows-[135px] grid-flow-dense grid-cols-2 gap-2.5 md:auto-rows-[150px] md:grid-cols-4 md:gap-3 lg:auto-rows-[165px]">
-                {resultImages.map((image) => (
+                {rotatingResultImages.map((image) => (
                   <div
                     key={image.src}
                     className={`group relative overflow-hidden rounded-[1rem] border border-white/10 bg-white/5 shadow-[0_12px_26px_rgba(0,0,0,0.24)] transition hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(0,0,0,0.30)] ${image.className}`}
