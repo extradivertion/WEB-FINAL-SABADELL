@@ -25,8 +25,6 @@ export default function DJBarcelonaLanding() {
 
   const heroImages = [
     "/dj-home-blue.jpg",
-    "/sesion-dj-barcelona-evento.jpg",
-    "/fiesta-dj-barcelona-luces-ambiente.jpg",
     "/dj-eventos-barcelona-montaje-iluminacion.jpg",
   ];
 
