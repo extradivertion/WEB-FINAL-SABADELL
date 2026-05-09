@@ -824,7 +824,7 @@ export default function DJBarcelonaLanding() {
                     className="rounded-[1.1rem] border border-white/10 bg-gradient-to-br from-white/12 to-white/5 px-3 py-4 text-center text-[14px] font-semibold text-white shadow-[0_10px_24px_rgba(0,0,0,0.20)] backdrop-blur md:rounded-[1.25rem] md:px-5 md:py-6 md:text-base"
                   >
                     {item}
-                  </button>
+                  </div>
                 ))}
               </div>
             </div>
