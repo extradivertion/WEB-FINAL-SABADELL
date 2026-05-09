@@ -17,13 +17,18 @@ export default function DJBarcelonaLanding() {
   const [formError, setFormError] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [resultOffset, setResultOffset] = useState(0);
+  const [selectedResultImage, setSelectedResultImage] = useState<null | { src: string; alt: string }>(null);
 
   const formSubmitAction = "https://formsubmit.co/ajax/smextradivertion@gmail.com";
   const whatsappHref =
     "https://wa.me/34654685158?text=Hola%2C%20quiero%20pedir%20presupuesto%20para%20un%20evento.";
 
-  const heroImages = ["/dj-home-blue.jpg", "/servicio-discoteca.jpg"];
+  const heroImages = [
+    "/dj-home-blue.jpg",
+    "/sesion-dj-barcelona-evento.jpg",
+    "/fiesta-dj-barcelona-luces-ambiente.jpg",
+    "/dj-eventos-barcelona-montaje-iluminacion.jpg",
+  ];
 
   const trustItems = [
     { label: "EVENTOS A MEDIDA", value: "Personalizado", text: "música adaptada a cada público" },
@@ -239,24 +244,17 @@ export default function DJBarcelonaLanding() {
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const rotatingResultImages = resultImages.length
-    ? resultImages.map((_, index) => resultImages[(index + resultOffset) % resultImages.length])
-    : [];
 
   useEffect(() => {
     const heroTimer = window.setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
 
-    const resultsTimer = window.setInterval(() => {
-      setResultOffset((prev) => (resultImages.length ? (prev + 1) % resultImages.length : 0));
-    }, 6500);
 
     return () => {
       window.clearInterval(heroTimer);
-      window.clearInterval(resultsTimer);
     };
-  }, [heroImages.length, resultImages.length]);
+  }, [heroImages.length]);
 
   useEffect(() => {
     const upsertMeta = (selector: string, attributes: Record<string, string>) => {
@@ -826,7 +824,7 @@ export default function DJBarcelonaLanding() {
                     className="rounded-[1.1rem] border border-white/10 bg-gradient-to-br from-white/12 to-white/5 px-3 py-4 text-center text-[14px] font-semibold text-white shadow-[0_10px_24px_rgba(0,0,0,0.20)] backdrop-blur md:rounded-[1.25rem] md:px-5 md:py-6 md:text-base"
                   >
                     {item}
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -851,10 +849,13 @@ export default function DJBarcelonaLanding() {
               </div>
 
               <div className="grid auto-rows-[135px] grid-flow-dense grid-cols-2 gap-2.5 md:auto-rows-[150px] md:grid-cols-4 md:gap-3 lg:auto-rows-[165px]">
-                {rotatingResultImages.map((image) => (
-                  <div
+                {resultImages.map((image) => (
+                  <button
                     key={image.src}
-                    className={`group relative overflow-hidden rounded-[1rem] border border-white/10 bg-white/5 shadow-[0_12px_26px_rgba(0,0,0,0.24)] transition hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(0,0,0,0.30)] ${image.className}`}
+                    type="button"
+                    onClick={() => setSelectedResultImage({ src: image.src, alt: image.alt })}
+                    className={`group relative overflow-hidden rounded-[1rem] border border-white/10 bg-white/5 text-left shadow-[0_12px_26px_rgba(0,0,0,0.24)] transition hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(0,0,0,0.30)] ${image.className}`}
+                    aria-label={`Ampliar imagen: ${image.alt}`}
                   >
                     <img
                       src={image.src}
@@ -1279,6 +1280,31 @@ export default function DJBarcelonaLanding() {
           </div>
         </div>
       </footer>
+
+      {selectedResultImage && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/88 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedResultImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            onClick={() => setSelectedResultImage(null)}
+            className="absolute right-4 top-4 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(0,0,0,0.25)] transition hover:bg-white/20"
+            aria-label="Cerrar imagen ampliada"
+          >
+            Cerrar
+          </button>
+
+          <img
+            src={selectedResultImage.src}
+            alt={selectedResultImage.alt}
+            className="max-h-[86vh] max-w-[94vw] rounded-[1.25rem] object-contain shadow-[0_24px_70px_rgba(0,0,0,0.45)]"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       <a
         href={whatsappHref}
