@@ -864,7 +864,7 @@ export default function DJBarcelonaLanding() {
                       loading="lazy"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent opacity-70" />
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
