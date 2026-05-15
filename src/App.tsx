@@ -257,6 +257,7 @@ const getCanonicalUrl = (path: string) =>
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
 const canonicalUrl = getCanonicalUrl(pageConfig.path);
+  
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -529,7 +530,117 @@ const canonicalUrl = getCanonicalUrl(pageConfig.path);
       Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
     };
 
-document.title = pageConfig.seoTitle;
+useEffect(() => {
+  const upsertMeta = (selector: string, attributes: Record<string, string>) => {
+    let element = document.head.querySelector(selector) as HTMLMetaElement | null;
+    if (!element) {
+      element = document.createElement("meta");
+      document.head.appendChild(element);
+    }
+    Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
+  };
+
+  const upsertLink = (selector: string, attributes: Record<string, string>) => {
+    let element = document.head.querySelector(selector) as HTMLLinkElement | null;
+    if (!element) {
+      element = document.createElement("link");
+      document.head.appendChild(element);
+    }
+    Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
+  };
+
+  document.title = pageConfig.seoTitle;
+
+  upsertMeta('meta[name="description"]', {
+    name: "description",
+    content: pageConfig.seoDescription,
+  });
+
+  upsertMeta('meta[name="robots"]', {
+    name: "robots",
+    content: "index, follow",
+  });
+
+  upsertMeta('meta[property="og:title"]', {
+    property: "og:title",
+    content: pageConfig.seoTitle,
+  });
+
+  upsertMeta('meta[property="og:description"]', {
+    property: "og:description",
+    content: pageConfig.ogDescription,
+  });
+
+  upsertMeta('meta[property="og:type"]', {
+    property: "og:type",
+    content: "website",
+  });
+
+  upsertMeta('meta[property="og:url"]', {
+    property: "og:url",
+    content: canonicalUrl,
+  });
+
+  upsertMeta('meta[property="og:image"]', {
+    property: "og:image",
+    content: "https://extradivertion.com/dj-home-blue.jpg",
+  });
+
+  upsertLink('link[rel="canonical"]', {
+    rel: "canonical",
+    href: canonicalUrl,
+  });
+
+  upsertLink('link[rel="icon"]', {
+    rel: "icon",
+    href: "/logo-sobre-nosotros.png",
+    type: "image/png",
+  });
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "EntertainmentBusiness"],
+    name: "Extradivertion",
+    url: canonicalUrl,
+    image: "https://extradivertion.com/logo-sobre-nosotros.png",
+    email: "smextradivertion@gmail.com",
+    telephone: "+34654685158",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: pageConfig.city,
+      addressRegion: "Barcelona",
+      addressCountry: "ES",
+    },
+    areaServed: pageConfig.areaServed,
+    description: pageConfig.seoDescription,
+    priceRange: "€€",
+    makesOffer: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: `${pageConfig.heroLine1} en ${pageConfig.city}`,
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "DJ para fiestas privadas y eventos corporativos",
+        },
+      },
+    ],
+  };
+
+  let schemaScript = document.getElementById("extradivertion-local-business-schema");
+  if (!schemaScript) {
+    schemaScript = document.createElement("script");
+    schemaScript.id = "extradivertion-local-business-schema";
+    schemaScript.setAttribute("type", "application/ld+json");
+    document.head.appendChild(schemaScript);
+  }
+  schemaScript.textContent = JSON.stringify(schema);
+}, [canonicalUrl, pageConfig]);
 
    upsertMeta('meta[name="description"]', {
   name: "description",
@@ -736,9 +847,9 @@ document.title = pageConfig.seoTitle;
           <div className="relative mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-24 lg:py-32">
             <div className="mx-auto max-w-5xl text-center">
               <h1 className="text-[34px] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] sm:text-5xl md:text-7xl xl:text-8xl">
-                <span className="block">DJ para eventos</span>
+  <span className="block">{pageConfig.heroLine1}</span>
                 <span className="mt-2 block bg-gradient-to-r from-sky-100 via-cyan-200 to-sky-400 bg-clip-text text-transparent drop-shadow-[0_8px_26px_rgba(56,189,248,0.25)] md:mt-3">
-                  Barcelona
+                  {pageConfig.heroLine2}
                 </span>
               </h1>
 
