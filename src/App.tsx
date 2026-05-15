@@ -256,15 +256,15 @@ const getCanonicalUrl = (path: string) =>
   path === "/" ? "https://extradivertion.com/" : `https://extradivertion.com${path}`;
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
-const canonicalUrl = getCanonicalUrl(pageConfig.path);
-  
+  const canonicalUrl = getCanonicalUrl(pageConfig.path);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     eventType: "",
     eventDate: "",
-    location: "",
+    location: pageConfig.formLocation,
     guests: "",
     hours: "",
     details: "",
