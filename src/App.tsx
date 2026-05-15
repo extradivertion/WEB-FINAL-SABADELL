@@ -287,7 +287,7 @@ export default function DJBarcelonaLanding() {
 
   const trustItems = [
     { label: "EVENTOS A MEDIDA", value: "Personalizado", text: "música adaptada a cada público" },
-    { label: "ZONA DE SERVICIO", value: "BCN", text: "Barcelona y alrededores" },
+    { label: "ZONA DE SERVICIO", value: pageConfig.cityShort, text: `${pageConfig.city} y alrededores` },
     { label: "SERVICIO COMPLETO", value: "DJ + equipo", text: "sonido, cabina e iluminación" },
   ];
 
@@ -446,7 +446,8 @@ export default function DJBarcelonaLanding() {
     payload.append("Email", formData.email);
     payload.append("Tipo de evento", formData.eventType);
     payload.append("Fecha del evento", formData.eventDate || "No indicada");
-    payload.append("Ubicación", formData.location || "No indicada");
+    payload.append("Ubicación", formData.location || pageConfig.formLocation || "No indicada");
+    payload.append("Página local", pageConfig.city);
     payload.append("Nº de personas aprox.", formData.guests || "No indicado");
     payload.append("Horas de servicio", formData.hours || "No indicado");
     payload.append("Detalles del evento", formData.details || "No indicado");
@@ -482,7 +483,7 @@ export default function DJBarcelonaLanding() {
         email: "",
         eventType: "",
         eventDate: "",
-        location: "",
+        location: pageConfig.formLocation,
         guests: "",
         hours: "",
         details: "",
@@ -530,137 +531,26 @@ export default function DJBarcelonaLanding() {
       Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
     };
 
-useEffect(() => {
-  const upsertMeta = (selector: string, attributes: Record<string, string>) => {
-    let element = document.head.querySelector(selector) as HTMLMetaElement | null;
-    if (!element) {
-      element = document.createElement("meta");
-      document.head.appendChild(element);
-    }
-    Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
-  };
+    document.title = pageConfig.seoTitle;
 
-  const upsertLink = (selector: string, attributes: Record<string, string>) => {
-    let element = document.head.querySelector(selector) as HTMLLinkElement | null;
-    if (!element) {
-      element = document.createElement("link");
-      document.head.appendChild(element);
-    }
-    Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
-  };
-
-  document.title = pageConfig.seoTitle;
-
-  upsertMeta('meta[name="description"]', {
-    name: "description",
-    content: pageConfig.seoDescription,
-  });
-
-  upsertMeta('meta[name="robots"]', {
-    name: "robots",
-    content: "index, follow",
-  });
-
-  upsertMeta('meta[property="og:title"]', {
-    property: "og:title",
-    content: pageConfig.seoTitle,
-  });
-
-  upsertMeta('meta[property="og:description"]', {
-    property: "og:description",
-    content: pageConfig.ogDescription,
-  });
-
-  upsertMeta('meta[property="og:type"]', {
-    property: "og:type",
-    content: "website",
-  });
-
-  upsertMeta('meta[property="og:url"]', {
-    property: "og:url",
-    content: canonicalUrl,
-  });
-
-  upsertMeta('meta[property="og:image"]', {
-    property: "og:image",
-    content: "https://extradivertion.com/dj-home-blue.jpg",
-  });
-
-  upsertLink('link[rel="canonical"]', {
-    rel: "canonical",
-    href: canonicalUrl,
-  });
-
-  upsertLink('link[rel="icon"]', {
-    rel: "icon",
-    href: "/logo-sobre-nosotros.png",
-    type: "image/png",
-  });
-
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "EntertainmentBusiness"],
-    name: "Extradivertion",
-    url: canonicalUrl,
-    image: "https://extradivertion.com/logo-sobre-nosotros.png",
-    email: "smextradivertion@gmail.com",
-    telephone: "+34654685158",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: pageConfig.city,
-      addressRegion: "Barcelona",
-      addressCountry: "ES",
-    },
-    areaServed: pageConfig.areaServed,
-    description: pageConfig.seoDescription,
-    priceRange: "€€",
-    makesOffer: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: `${pageConfig.heroLine1} en ${pageConfig.city}`,
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "DJ para fiestas privadas y eventos corporativos",
-        },
-      },
-    ],
-  };
-
-  let schemaScript = document.getElementById("extradivertion-local-business-schema");
-  if (!schemaScript) {
-    schemaScript = document.createElement("script");
-    schemaScript.id = "extradivertion-local-business-schema";
-    schemaScript.setAttribute("type", "application/ld+json");
-    document.head.appendChild(schemaScript);
-  }
-  schemaScript.textContent = JSON.stringify(schema);
-}, [canonicalUrl, pageConfig]);
-
-   upsertMeta('meta[name="description"]', {
-  name: "description",
-  content: pageConfig.seoDescription,
-});
+    upsertMeta('meta[name="description"]', {
+      name: "description",
+      content: pageConfig.seoDescription,
+    });
 
     upsertMeta('meta[name="robots"]', {
       name: "robots",
       content: "index, follow",
     });
 
- upsertMeta('meta[property="og:title"]', {
-  property: "og:title",
-  content: pageConfig.seoTitle,
-});
+    upsertMeta('meta[property="og:title"]', {
+      property: "og:title",
+      content: pageConfig.seoTitle,
+    });
 
     upsertMeta('meta[property="og:description"]', {
       property: "og:description",
-      content:
-        "Servicio de DJ para eventos privados, empresas, discotecas y celebraciones en Barcelona, Sabadell, Terrassa y Vallès Occidental.",
+      content: pageConfig.ogDescription,
     });
 
     upsertMeta('meta[property="og:type"]', {
@@ -670,7 +560,7 @@ useEffect(() => {
 
     upsertMeta('meta[property="og:url"]', {
       property: "og:url",
-      content: "https://extradivertion.com/",
+      content: canonicalUrl,
     });
 
     upsertMeta('meta[property="og:image"]', {
@@ -678,10 +568,10 @@ useEffect(() => {
       content: "https://extradivertion.com/dj-home-blue.jpg",
     });
 
- upsertLink('link[rel="canonical"]', {
-  rel: "canonical",
-  href: canonicalUrl,
-});
+    upsertLink('link[rel="canonical"]', {
+      rel: "canonical",
+      href: canonicalUrl,
+    });
 
     upsertLink('link[rel="icon"]', {
       rel: "icon",
@@ -693,35 +583,25 @@ useEffect(() => {
       "@context": "https://schema.org",
       "@type": ["LocalBusiness", "EntertainmentBusiness"],
       name: "Extradivertion",
-      url: "https://extradivertion.com/",
+      url: canonicalUrl,
       image: "https://extradivertion.com/logo-sobre-nosotros.png",
       email: "smextradivertion@gmail.com",
       telephone: "+34654685158",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Sabadell",
+        addressLocality: pageConfig.city,
         addressRegion: "Barcelona",
         addressCountry: "ES",
       },
-      areaServed: [
-        "Barcelona",
-        "Sabadell",
-        "Terrassa",
-        "Sant Cugat del Vallès",
-        "Cerdanyola del Vallès",
-        "Rubí",
-        "Barberà del Vallès",
-        "Vallès Occidental",
-      ],
-      description:
-        "Servicio de DJ para eventos en Barcelona y Vallès Occidental. Música, sonido e iluminación para fiestas privadas, eventos corporativos, discotecas y celebraciones a medida.",
+      areaServed: pageConfig.areaServed,
+      description: pageConfig.seoDescription,
       priceRange: "€€",
       makesOffer: [
         {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "DJ para eventos en Barcelona",
+            name: `${pageConfig.heroLine1} en ${pageConfig.city}`,
           },
         },
         {
@@ -742,7 +622,8 @@ useEffect(() => {
       document.head.appendChild(schemaScript);
     }
     schemaScript.textContent = JSON.stringify(schema);
-}, [canonicalUrl, pageConfig]);
+  }, [canonicalUrl, pageConfig]);
+
 
   return (
     <div
@@ -856,7 +737,7 @@ useEffect(() => {
               <p className="mx-auto mt-5 max-w-3xl text-[15px] leading-7 text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-lg md:mt-7 md:text-[23px] md:leading-9">
                 Aquí empieza la{" "}
                 <span className="bg-gradient-to-r from-white via-sky-200 to-cyan-300 bg-clip-text font-semibold italic text-transparent drop-shadow-[0_2px_12px_rgba(56,189,248,0.18)]">
-                  música que hará inolvidable tu evento
+                  {pageConfig.heroSubtitle}
                 </span>
                 .
               </p>
@@ -925,7 +806,7 @@ useEffect(() => {
             </h2>
 
             <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">
-              Servicio de DJ en Barcelona para fiestas privadas, eventos corporativos, discotecas, cumpleaños y celebraciones a medida. Adaptamos la música, el equipo y el montaje al espacio y al público.
+              {pageConfig.serviceIntro}
             </p>
           </div>
 
@@ -996,18 +877,18 @@ useEffect(() => {
                 </p>
 
                 <h2 className="mt-4 text-[30px] font-black uppercase leading-[0.96] tracking-tight text-slate-950 sm:text-4xl md:text-5xl">
-                  Servicio DJ en Barcelona
+                  {pageConfig.zoneHeadingMain}
                   <span className="block bg-gradient-to-r from-sky-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
-                    y alrededores
+                    {pageConfig.zoneHeadingHighlight}
                   </span>
                 </h2>
 
                 <p className="mt-4 max-w-3xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
-                  Nos movemos principalmente por Barcelona y el Vallès Occidental, con un servicio pensado para eventos privados, empresas, discotecas y celebraciones a medida. La clave no es solo llegar: es llevar el montaje adecuado, cuidar el sonido y adaptar la sesión al espacio y al público.
+                  {pageConfig.zoneParagraph1}
                 </p>
 
                 <p className="mt-3 max-w-3xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
-                  Cubrimos habitualmente Barcelona, Sabadell, Terrassa, Sant Cugat, Cerdanyola, Rubí y Barberà del Vallès. Si tu evento está en una zona cercana, revisamos disponibilidad y te decimos rápido la mejor opción.
+                  {pageConfig.zoneParagraph2}
                 </p>
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-3 md:mt-7">
@@ -1586,7 +1467,7 @@ useEffect(() => {
                   DJ para eventos en Barcelona
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-slate-300">
-                  Barcelona · Sabadell · Terrassa · Vallès Occidental
+                  {pageConfig.footerLocationText}
                 </p>
                 <p className="mt-2 text-sm leading-7 text-slate-400">
                   Marca enfocada en experiencias musicales, eventos privados, corporativos, discotecas y celebraciones a medida.
