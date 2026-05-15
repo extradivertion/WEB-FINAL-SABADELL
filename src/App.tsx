@@ -1,6 +1,8 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 
 export default function DJBarcelonaLanding() {
+  const pageConfig = getCurrentPageConfig();
+const canonicalUrl = getCanonicalUrl(pageConfig.path);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -273,23 +275,22 @@ export default function DJBarcelonaLanding() {
       Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
     };
 
-    document.title = "DJ para eventos en Barcelona | Extradivertion";
+document.title = pageConfig.seoTitle;
 
-    upsertMeta('meta[name="description"]', {
-      name: "description",
-      content:
-        "DJ para eventos en Barcelona y Vallès Occidental. Música, sonido e iluminación para fiestas privadas, eventos corporativos, discotecas y celebraciones a medida.",
-    });
+   upsertMeta('meta[name="description"]', {
+  name: "description",
+  content: pageConfig.seoDescription,
+});
 
     upsertMeta('meta[name="robots"]', {
       name: "robots",
       content: "index, follow",
     });
 
-    upsertMeta('meta[property="og:title"]', {
-      property: "og:title",
-      content: "DJ para eventos en Barcelona | Extradivertion",
-    });
+ upsertMeta('meta[property="og:title"]', {
+  property: "og:title",
+  content: pageConfig.seoTitle,
+});
 
     upsertMeta('meta[property="og:description"]', {
       property: "og:description",
@@ -312,10 +313,10 @@ export default function DJBarcelonaLanding() {
       content: "https://extradivertion.com/dj-home-blue.jpg",
     });
 
-    upsertLink('link[rel="canonical"]', {
-      rel: "canonical",
-      href: "https://extradivertion.com/",
-    });
+ upsertLink('link[rel="canonical"]', {
+  rel: "canonical",
+  href: canonicalUrl,
+});
 
     upsertLink('link[rel="icon"]', {
       rel: "icon",
@@ -376,7 +377,7 @@ export default function DJBarcelonaLanding() {
       document.head.appendChild(schemaScript);
     }
     schemaScript.textContent = JSON.stringify(schema);
-  }, []);
+}, [canonicalUrl, pageConfig]);
 
   return (
     <div
