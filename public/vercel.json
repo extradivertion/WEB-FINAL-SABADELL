@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/dj-eventos-barcelona", "destination": "/" },
+    { "source": "/dj-eventos-sabadell", "destination": "/" },
+    { "source": "/dj-eventos-terrassa", "destination": "/" },
+    { "source": "/dj-eventos-valles-occidental", "destination": "/" },
+    { "source": "/dj-fiestas-privadas-barcelona", "destination": "/" },
+    { "source": "/dj-eventos-empresa-barcelona", "destination": "/" }
+  ]
+}
