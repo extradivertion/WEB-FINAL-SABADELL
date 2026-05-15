@@ -1,15 +1,8 @@
 {
   "rewrites": [
-    { "source": "/dj-eventos-barcelona", "destination": "/" },
-    { "source": "/dj-eventos-sabadell", "destination": "/" },
-    { "source": "/dj-eventos-terrassa", "destination": "/" },
-    { "source": "/dj-eventos-valles-occidental", "destination": "/" },
-    { "source": "/dj-fiestas-privadas-barcelona", "destination": "/" },
-    { "source": "/dj-eventos-empresa-barcelona", "destination": "/" },
-    { "source": "/dj-eventos-sant-cugat", "destination": "/" },
-    { "source": "/dj-eventos-rubi", "destination": "/" },
-    { "source": "/dj-eventos-cerdanyola", "destination": "/" },
-    { "source": "/dj-eventos-barbera-del-valles", "destination": "/" },
-    { "source": "/dj-eventos-sant-quirze-del-valles", "destination": "/" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
