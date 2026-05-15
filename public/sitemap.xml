@@ -4,4 +4,28 @@
     <loc>https://extradivertion.com/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://extradivertion.com/dj-eventos-barcelona</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://extradivertion.com/dj-eventos-sabadell</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://extradivertion.com/dj-eventos-terrassa</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://extradivertion.com/dj-eventos-valles-occidental</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://extradivertion.com/dj-fiestas-privadas-barcelona</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://extradivertion.com/dj-eventos-empresa-barcelona</loc>
+    <priority>0.85</priority>
+  </url>
 </urlset>
