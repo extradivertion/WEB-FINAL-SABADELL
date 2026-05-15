@@ -42,16 +42,16 @@ export default function DJBarcelonaLanding() {
     { title: "Experiencias musicales a medida", image: "/servicio-medida.jpg", link: "#formulario" },
   ];
 
-  const zones = [
-    "Barcelona ciudad",
-    "Sabadell",
-    "Terrassa",
-    "Sant Cugat del Vallès",
-    "Cerdanyola del Vallès",
-    "Rubí",
-    "Barberà del Vallès",
-    "Otras zonas cercanas",
-  ];
+ const zones = [
+  { name: "Barcelona ciudad", path: "/dj-eventos-barcelona" },
+  { name: "Sabadell", path: "/dj-eventos-sabadell" },
+  { name: "Terrassa", path: "/dj-eventos-terrassa" },
+  { name: "Sant Cugat del Vallès", path: "/dj-eventos-sant-cugat" },
+  { name: "Cerdanyola del Vallès", path: "/dj-eventos-cerdanyola" },
+  { name: "Rubí", path: "/dj-eventos-rubi" },
+  { name: "Barberà del Vallès", path: "/dj-eventos-barbera-del-valles" },
+  { name: "Sant Quirze del Vallès", path: "/dj-eventos-sant-quirze-del-valles" },
+];
 
   const faqs = [
     {
@@ -678,14 +678,17 @@ export default function DJBarcelonaLanding() {
               <div className="flex h-full rounded-[1.45rem] bg-slate-950 p-4 text-white shadow-[0_18px_40px_rgba(15,23,42,0.18)] md:rounded-[1.75rem] md:p-5 lg:p-6">
                 <div className="flex min-h-full w-full flex-col rounded-[1.2rem] border border-white/12 bg-white/[0.04] p-4 text-center backdrop-blur md:rounded-[1.45rem] md:p-4">
                   <div className="grid flex-1 auto-rows-fr grid-cols-2 gap-2.5 md:gap-3">
-                    {zones.map((zone) => (
-                      <div
-                        key={zone}
-                        className="group flex min-h-[58px] items-center justify-center rounded-[1rem] border border-white/18 bg-white/[0.075] px-3 py-3 text-center shadow-[0_10px_20px_rgba(0,0,0,0.18)] ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:border-sky-200/35 hover:bg-white/[0.11] md:min-h-[64px] md:px-3.5 md:py-3.5"
-                      >
-                        <p className="text-[14px] font-bold leading-5 text-white md:text-[15px]">{zone}</p>
-                      </div>
-                    ))}
+                 {zones.map((zone) => (
+  <a
+    key={zone.name}
+    href={zone.path}
+    className="group flex min-h-[58px] items-center justify-center rounded-[1rem] border border-white/18 bg-white/[0.075] px-3 py-3 text-center shadow-[0_10px_20px_rgba(0,0,0,0.18)] ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:border-sky-200/35 hover:bg-white/[0.11] md:min-h-[64px] md:px-3.5 md:py-3.5"
+  >
+    <p className="text-[14px] font-bold leading-5 text-white md:text-[15px]">
+      {zone.name}
+    </p>
+  </a>
+))}
                   </div>
 
                   <div className="mt-3 rounded-[1.15rem] border border-sky-300/20 bg-sky-300/10 p-3.5 md:mt-4 md:rounded-[1.25rem] md:p-4">
@@ -1224,19 +1227,46 @@ export default function DJBarcelonaLanding() {
                 </p>
               </div>
 
-              <div className="grid gap-2 text-sm text-slate-300">
-                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-                  Navegación
-                </p>
-                <a href="#inicio" className="transition hover:text-white">Inicio</a>
-                <a href="#servicios" className="transition hover:text-white">Servicios DJ</a>
-                <a href="#zonas" className="transition hover:text-white">Zonas de servicio</a>
-                <a href="#conocenos" className="transition hover:text-white">Sobre nosotros</a>
-                <a href="#equipo-disponible" className="transition hover:text-white">Equipo disponible</a>
-                <a href="#resultados" className="transition hover:text-white">Resultados</a>
-                <a href="#faq" className="transition hover:text-white">Preguntas frecuentes</a>
-                <a href="#contacto" className="transition hover:text-white">Contactar</a>
-              </div>
+             <div className="grid gap-2 text-sm text-slate-300">
+  <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+    Navegación
+  </p>
+  <a href="#inicio" className="transition hover:text-white">Inicio</a>
+  <a href="#servicios" className="transition hover:text-white">Servicios DJ</a>
+  <a href="#zonas" className="transition hover:text-white">Zonas de servicio</a>
+  <a href="#conocenos" className="transition hover:text-white">Sobre nosotros</a>
+  <a href="#equipo-disponible" className="transition hover:text-white">Equipo disponible</a>
+  <a href="#resultados" className="transition hover:text-white">Resultados</a>
+  <a href="#faq" className="transition hover:text-white">Preguntas frecuentes</a>
+  <a href="#contacto" className="transition hover:text-white">Contactar</a>
+
+  <div className="my-2 border-t border-white/10" />
+
+  <a href="/dj-eventos-barcelona" className="transition hover:text-white">
+    DJ eventos Barcelona
+  </a>
+  <a href="/dj-eventos-sabadell" className="transition hover:text-white">
+    DJ eventos Sabadell
+  </a>
+  <a href="/dj-eventos-terrassa" className="transition hover:text-white">
+    DJ eventos Terrassa
+  </a>
+  <a href="/dj-eventos-sant-cugat" className="transition hover:text-white">
+    DJ eventos Sant Cugat
+  </a>
+  <a href="/dj-eventos-rubi" className="transition hover:text-white">
+    DJ eventos Rubí
+  </a>
+  <a href="/dj-eventos-cerdanyola" className="transition hover:text-white">
+    DJ eventos Cerdanyola
+  </a>
+  <a href="/dj-eventos-barbera-del-valles" className="transition hover:text-white">
+    DJ eventos Barberà
+  </a>
+  <a href="/dj-eventos-sant-quirze-del-valles" className="transition hover:text-white">
+    DJ eventos Sant Quirze
+  </a>
+</div>
 
               <div className="grid gap-2 text-sm text-slate-300 md:min-w-[240px]">
                 <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
