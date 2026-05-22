@@ -27,15 +27,15 @@ const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Barcelona",
     heroSubtitle: "música que hará inolvidable tu evento",
-    seoTitle: "DJ para eventos en Barcelona | Extradivertion",
+    seoTitle: "DJ para eventos y fiestas privadas en Barcelona | Extradivertion",
     seoDescription:
-      "DJ para eventos en Barcelona y Vallès Occidental. Música, sonido e iluminación para fiestas privadas, eventos corporativos, discotecas y celebraciones a medida.",
+      "DJ para eventos y fiestas privadas en Barcelona: música comercial y house, sonido e iluminación para cumpleaños, empresas y celebraciones.",
     ogDescription:
-      "Servicio de DJ para eventos privados, empresas, discotecas y celebraciones en Barcelona, Sabadell, Terrassa y Vallès Occidental.",
+      "DJ para eventos y fiestas privadas en Barcelona con música comercial y house, sonido, iluminación y montaje para celebraciones a medida.",
     zoneHeadingMain: "Servicio DJ en Barcelona",
     zoneHeadingHighlight: "y alrededores",
     serviceIntro:
-      "Servicio de DJ en Barcelona para fiestas privadas, eventos corporativos, discotecas, cumpleaños y celebraciones a medida. Adaptamos la música, el equipo y el montaje al espacio y al público.",
+      "Servicio de DJ para eventos en Barcelona, fiestas privadas, cumpleaños y celebraciones de empresa. Adaptamos la música comercial, house, sonido, iluminación y montaje al espacio y al público.",
     zoneParagraph1:
       "Nos movemos principalmente por Barcelona y el Vallès Occidental, con un servicio pensado para eventos privados, empresas, discotecas y celebraciones a medida. La clave no es solo llegar: es llevar el montaje adecuado, cuidar el sonido y adaptar la sesión al espacio y al público.",
     zoneParagraph2:
@@ -257,6 +257,7 @@ const getCanonicalUrl = (path: string) =>
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
   const canonicalUrl = getCanonicalUrl(pageConfig.path);
+  const isHomePage = pageConfig.path === "/";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -312,34 +313,34 @@ export default function DJBarcelonaLanding() {
 
   const faqs = [
     {
-      question: "¿Cuánto cuesta contratar un DJ para un evento?",
+      question: "¿Cuánto cuesta contratar un DJ para una fiesta privada en Barcelona?",
       answer:
-        "Depende de la fecha, ubicación, duración, tipo de evento y necesidades técnicas. No es lo mismo una fiesta privada pequeña que un evento corporativo o una sesión con sonido e iluminación completos. Por eso preparamos cada presupuesto a medida y con la información clara desde el principio.",
+        "El precio depende de la fecha, ubicación, duración, número de invitados y necesidades técnicas. No es lo mismo una fiesta privada pequeña que una celebración con sonido e iluminación completos. Por eso, antes de contratar DJ en Barcelona, revisamos el tipo de evento y preparamos un presupuesto a medida.",
     },
     {
-      question: "¿El servicio puede incluir sonido, cabina e iluminación?",
+      question: "¿El servicio incluye sonido e iluminación?",
       answer:
-        "Sí. Podemos llevar DJ profesional, mesa de mezclas, cabina DJ, equipo de sonido, iluminación y montaje adaptado al espacio. Si el local ya tiene equipo, lo revisamos y ajustamos la propuesta para no incluir cosas innecesarias.",
+        "Sí. Podemos ofrecer un servicio de DJ con sonido e iluminación, cabina DJ, mesa de mezclas y montaje adaptado al espacio. Si el local, sala o casa privada ya dispone de equipo, lo revisamos para ajustar la propuesta y no incluir elementos innecesarios.",
     },
     {
-      question: "¿Trabajáis en Barcelona, Sabadell, Terrassa y Vallès Occidental?",
+      question: "¿Trabajáis en casas privadas, locales y salas privadas?",
       answer:
-        "Sí. Trabajamos principalmente en Barcelona y alrededores, con cobertura habitual en Sabadell, Terrassa, Sant Cugat, Cerdanyola, Rubí, Barberà del Vallès y otras zonas del Vallès Occidental.",
+        "Sí. Trabajamos en casas privadas, locales, salas privadas, terrazas, restaurantes, discotecas y espacios para eventos en Barcelona y alrededores. Antes del evento confirmamos acceso, horarios, potencia disponible y necesidades de montaje para que todo encaje bien.",
     },
     {
-      question: "¿Podemos elegir el estilo musical del evento?",
+      question: "¿Qué estilos musicales pincha el DJ?",
       answer:
-        "Sí. Antes del evento hablamos contigo para entender el ambiente que buscas, los estilos que te gustan, canciones importantes y temas que prefieres evitar. La sesión se prepara con esa base, pero manteniendo flexibilidad para adaptarse al público en directo.",
+        "Adaptamos la sesión al público y al tipo de celebración. Solemos trabajar música comercial y house, además de hits actuales, reggaeton, urbano, clásicos de fiesta, remember y canciones concretas que quieras incluir o evitar.",
     },
     {
-      question: "¿Hacéis fiestas privadas, eventos de empresa y discotecas?",
+      question: "¿Con cuánta antelación conviene reservar un DJ para fiestas privadas?",
       answer:
-        "Sí. Trabajamos en fiestas privadas, cumpleaños, eventos corporativos, celebraciones familiares, discotecas y experiencias a medida. Cada formato requiere un enfoque distinto de música, ritmo, montaje y trato con el público.",
+        "Lo ideal es reservar con varias semanas de margen, especialmente si la fiesta es en fin de semana, verano, Navidad o fechas con mucha demanda. Aun así, si tienes una fecha cercana, puedes escribirnos y revisamos disponibilidad.",
     },
     {
-      question: "¿Con cuánta antelación conviene reservar?",
+      question: "¿También hacéis eventos de empresa y otros eventos en Barcelona?",
       answer:
-        "Lo mejor es consultarlo cuanto antes, sobre todo si el evento es en fin de semana, verano, Navidad o fechas con alta demanda. Aun así, si tienes una fecha cercana, escríbenos y revisamos disponibilidad.",
+        "Sí. Además de fiestas privadas y cumpleaños, ofrecemos DJ para eventos en Barcelona como celebraciones de empresa, afterworks, cenas corporativas, discotecas y experiencias musicales a medida.",
     },
   ];
 
@@ -579,9 +580,9 @@ export default function DJBarcelonaLanding() {
       type: "image/png",
     });
 
-    const schema = {
-      "@context": "https://schema.org",
+    const localBusinessSchema = {
       "@type": ["LocalBusiness", "EntertainmentBusiness"],
+      "@id": `${canonicalUrl}#extradivertion`,
       name: "Extradivertion",
       url: canonicalUrl,
       image: "https://extradivertion.com/logo-sobre-nosotros.png",
@@ -608,10 +609,36 @@ export default function DJBarcelonaLanding() {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: "DJ para fiestas privadas y eventos corporativos",
+            name: "DJ para fiestas privadas en Barcelona",
+            areaServed: "Barcelona",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "DJ con sonido e iluminación para eventos",
           },
         },
       ],
+    };
+
+    const faqSchema = {
+      "@type": "FAQPage",
+      "@id": `${canonicalUrl}#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    };
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": [localBusinessSchema, faqSchema],
     };
 
     let schemaScript = document.getElementById("extradivertion-local-business-schema");
@@ -860,6 +887,85 @@ export default function DJBarcelonaLanding() {
             ))}
           </div>
         </section>
+
+        {isHomePage && (
+          <section
+            id="dj-fiestas-privadas-barcelona"
+            className="mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-12"
+            style={scrollOffset}
+          >
+            <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.08)]">
+              <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-sky-100/70 blur-3xl" />
+              <div className="absolute bottom-0 left-0 h-36 w-36 rounded-full bg-cyan-100/60 blur-3xl" />
+
+              <div className="relative grid gap-6 p-5 md:p-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center lg:p-9">
+                <div>
+                  <p className="inline-flex rounded-full border border-sky-200 bg-sky-50/80 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.20em] text-sky-700 backdrop-blur md:px-4 md:text-xs md:tracking-[0.28em]">
+                    Servicio destacado en Barcelona
+                  </p>
+
+                  <h2 className="mt-4 text-[30px] font-black uppercase leading-[0.96] tracking-tight text-slate-950 sm:text-4xl md:text-5xl">
+                    DJ para fiestas privadas
+                    <span className="block bg-gradient-to-r from-sky-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
+                      en Barcelona
+                    </span>
+                  </h2>
+
+                  <p className="mt-5 max-w-3xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
+                    Si estás organizando una fiesta privada en Barcelona, un cumpleaños o una celebración en un local, casa privada o sala reservada, preparamos una sesión DJ adaptada al ambiente que buscas. La idea es que la música acompañe cada momento del evento y que la pista funcione de forma natural.
+                  </p>
+
+                  <p className="mt-4 max-w-3xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
+                    Trabajamos con música comercial y house, además de estilos actuales, clásicos de fiesta y canciones importantes para el grupo. También podemos incluir sonido e iluminación, cabina DJ y montaje adaptado al espacio para que no tengas que preocuparte por la parte técnica.
+                  </p>
+
+                  <p className="mt-4 max-w-3xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
+                    Cubrimos Barcelona y alrededores, incluyendo celebraciones privadas, cumpleaños, fiestas en locales, eventos en casas y formatos a medida. Si quieres contratar DJ en Barcelona, revisamos fecha, ubicación, horario y necesidades del evento para prepararte una propuesta clara.
+                  </p>
+
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <a
+                      href="#formulario"
+                      className="inline-flex items-center justify-center rounded-full bg-sky-700 px-6 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(3,105,161,0.24)] transition hover:-translate-y-0.5 hover:bg-sky-800"
+                    >
+                      Pedir presupuesto para una fiesta privada
+                    </a>
+                    <a
+                      href={whatsappHref}
+                      className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-[0_8px_20px_rgba(15,23,42,0.04)] transition hover:bg-slate-50"
+                    >
+                      Resolver dudas por WhatsApp
+                    </a>
+                  </div>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50 p-5 shadow-[0_12px_32px_rgba(15,23,42,0.06)] md:p-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.26em] text-sky-700/80">
+                    Ideal para
+                  </p>
+
+                  <div className="mt-5 grid gap-3">
+                    {[
+                      "Fiestas privadas",
+                      "Cumpleaños",
+                      "Celebraciones en locales",
+                      "Casas privadas",
+                      "Música comercial y house",
+                      "Sonido e iluminación",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-[1rem] border border-sky-100 bg-white/85 px-4 py-3 text-sm font-bold text-slate-800 shadow-[0_8px_18px_rgba(15,23,42,0.04)]"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         <section
           id="zonas"
