@@ -256,6 +256,7 @@ const getCanonicalUrl = (path: string) =>
   path === "/" ? "https://extradivertion.com/" : `https://extradivertion.com${path}`;
 
 const GOOGLE_ADS_ID = "AW-18165194989";
+const GOOGLE_ADS_FORM_CONVERSION_EVENT = "ads_conversion_Solicitud_de_presupuest_1";
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
   const canonicalUrl = getCanonicalUrl(pageConfig.path);
@@ -477,6 +478,12 @@ export default function DJBarcelonaLanding() {
       if (result?.success !== true && result?.success !== "true") {
         throw new Error("No se pudo enviar la solicitud");
       }
+
+      const w = window as typeof window & {
+        gtag?: (...args: unknown[]) => void;
+      };
+
+      w.gtag?.("event", GOOGLE_ADS_FORM_CONVERSION_EVENT);
 
       setFormSent(true);
       setFormError("");
