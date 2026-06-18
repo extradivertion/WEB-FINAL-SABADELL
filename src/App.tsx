@@ -254,6 +254,8 @@ const getCurrentPageConfig = () => {
 
 const getCanonicalUrl = (path: string) =>
   path === "/" ? "https://extradivertion.com/" : `https://extradivertion.com${path}`;
+
+const GOOGLE_ADS_ID = "AW-18165194989";
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
   const canonicalUrl = getCanonicalUrl(pageConfig.path);
@@ -500,6 +502,44 @@ export default function DJBarcelonaLanding() {
   };
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+
+  useEffect(() => {
+    const googleTagScriptId = "google-ads-gtag-js";
+    const googleTagConfigScriptId = "google-ads-gtag-config";
+
+    const w = window as typeof window & {
+      dataLayer?: unknown[];
+      gtag?: (...args: unknown[]) => void;
+    };
+
+    w.dataLayer = w.dataLayer || [];
+    w.gtag =
+      w.gtag ||
+      ((...args: unknown[]) => {
+        w.dataLayer?.push(args);
+      });
+
+    if (!document.getElementById(googleTagScriptId)) {
+      const script = document.createElement("script");
+      script.id = googleTagScriptId;
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`;
+      document.head.appendChild(script);
+    }
+
+    if (!document.getElementById(googleTagConfigScriptId)) {
+      const configScript = document.createElement("script");
+      configScript.id = googleTagConfigScriptId;
+      configScript.textContent = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GOOGLE_ADS_ID}');
+      `;
+      document.head.appendChild(configScript);
+    }
+  }, []);
 
 
   useEffect(() => {
