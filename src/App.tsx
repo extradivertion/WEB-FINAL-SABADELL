@@ -256,8 +256,28 @@ const getCanonicalUrl = (path: string) =>
   path === "/" ? "https://extradivertion.com/" : `https://extradivertion.com${path}`;
 
 const GOOGLE_ADS_ID = "AW-18165194989";
-const GOOGLE_ADS_FORM_CONVERSION_SEND_TO = "AW-18165194989/7Vs6CLy4jc8cEO3B69VD";
+const GOOGLE_ADS_FORM_CONVERSION_SEND_TO = "AW-18165194989/4dQGCJ7ej88cEO3B69VD";
 const THANK_YOU_PATH = "/gracias";
+
+const gtagReportConversion = (url: string) => {
+  const w = window as typeof window & {
+    gtag?: (...args: unknown[]) => void;
+  };
+
+  const callback = () => {
+    window.location.href = url;
+  };
+
+  if (!w.gtag) {
+    callback();
+    return;
+  }
+
+  w.gtag("event", "conversion", {
+    send_to: GOOGLE_ADS_FORM_CONVERSION_SEND_TO,
+    event_callback: callback,
+  });
+};
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
   const canonicalUrl = getCanonicalUrl(pageConfig.path);
@@ -480,15 +500,7 @@ export default function DJBarcelonaLanding() {
         throw new Error("No se pudo enviar la solicitud");
       }
 
-      const w = window as typeof window & {
-        gtag?: (...args: unknown[]) => void;
-      };
-
-      w.gtag?.("event", "conversion", {
-        send_to: GOOGLE_ADS_FORM_CONVERSION_SEND_TO,
-      });
-
-      window.location.href = THANK_YOU_PATH;
+      gtagReportConversion(THANK_YOU_PATH);
     } catch (error) {
       console.error(error);
       setFormError(
