@@ -257,10 +257,13 @@ const getCanonicalUrl = (path: string) =>
 
 const GOOGLE_ADS_ID = "AW-18165194989";
 const GOOGLE_ADS_FORM_CONVERSION_EVENT = "ads_conversion_Solicitud_de_presupuest_1";
+const THANK_YOU_PATH = "/gracias";
 export default function DJBarcelonaLanding() {
   const pageConfig = getCurrentPageConfig();
   const canonicalUrl = getCanonicalUrl(pageConfig.path);
   const isHomePage = pageConfig.path === "/";
+  const isThankYouPage =
+    (window.location.pathname.replace(/\/$/, "") || "/") === THANK_YOU_PATH;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -274,7 +277,6 @@ export default function DJBarcelonaLanding() {
     details: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formSent, setFormSent] = useState(false);
   const [formError, setFormError] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
@@ -440,7 +442,6 @@ export default function DJBarcelonaLanding() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSent(false);
     setFormError("");
     setIsSubmitting(true);
 
@@ -485,19 +486,7 @@ export default function DJBarcelonaLanding() {
 
       w.gtag?.("event", GOOGLE_ADS_FORM_CONVERSION_EVENT);
 
-      setFormSent(true);
-      setFormError("");
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        eventType: "",
-        eventDate: "",
-        location: pageConfig.formLocation,
-        guests: "",
-        hours: "",
-        details: "",
-      });
+      window.location.href = THANK_YOU_PATH;
     } catch (error) {
       console.error(error);
       setFormError(
@@ -579,16 +568,20 @@ export default function DJBarcelonaLanding() {
       Object.entries(attributes).forEach(([key, value]) => element?.setAttribute(key, value));
     };
 
-    document.title = pageConfig.seoTitle;
+    document.title = isThankYouPage
+      ? "Solicitud enviada | Extradivertion"
+      : pageConfig.seoTitle;
 
     upsertMeta('meta[name="description"]', {
       name: "description",
-      content: pageConfig.seoDescription,
+      content: isThankYouPage
+        ? "Gracias por tu solicitud de presupuesto. Te contactaremos lo antes posible."
+        : pageConfig.seoDescription,
     });
 
     upsertMeta('meta[name="robots"]', {
       name: "robots",
-      content: "index, follow",
+      content: isThankYouPage ? "noindex, nofollow" : "index, follow",
     });
 
     upsertMeta('meta[property="og:title"]', {
@@ -626,6 +619,10 @@ export default function DJBarcelonaLanding() {
       href: "/logo-sobre-nosotros.png",
       type: "image/png",
     });
+
+    if (isThankYouPage) {
+      return;
+    }
 
     const localBusinessSchema = {
       "@type": ["LocalBusiness", "EntertainmentBusiness"],
@@ -696,8 +693,53 @@ export default function DJBarcelonaLanding() {
       document.head.appendChild(schemaScript);
     }
     schemaScript.textContent = JSON.stringify(schema);
-  }, [canonicalUrl, pageConfig]);
+  }, [canonicalUrl, pageConfig, isThankYouPage]);
 
+
+  if (isThankYouPage) {
+    return (
+      <div
+        className="flex min-h-screen items-center justify-center bg-slate-950 px-4 py-12 text-white"
+        style={{
+          fontFamily:
+            "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        }}
+      >
+        <div className="w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center shadow-[0_24px_60px_rgba(2,6,23,0.45)] backdrop-blur md:p-12">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400/15 text-3xl text-emerald-300">
+            ✓
+          </div>
+
+          <h1 className="mt-6 text-3xl font-black uppercase leading-tight tracking-tight text-white md:text-4xl">
+            Solicitud enviada
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-300 md:text-lg">
+            Gracias por tu solicitud de presupuesto. Te responderemos lo antes posible para preparar una propuesta a medida para tu evento.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href="/"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-base font-semibold text-sky-900 shadow-[0_12px_30px_rgba(255,255,255,0.12)] transition hover:-translate-y-0.5 hover:bg-slate-100"
+            >
+              Volver al inicio
+            </a>
+            <a
+              href={whatsappHref}
+              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/15"
+            >
+              Hablar por WhatsApp
+            </a>
+          </div>
+
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Extradivertion · DJ para eventos
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -1534,12 +1576,6 @@ export default function DJBarcelonaLanding() {
                   >
                     {isSubmitting ? "Enviando solicitud..." : "Enviar solicitud"}
                   </button>
-
-                  {formSent && (
-                    <div className="rounded-[1.2rem] border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm leading-6 text-emerald-100">
-                      Solicitud enviada correctamente. Te contactaremos lo más rápido posible para preparar una propuesta a medida.
-                    </div>
-                  )}
 
                   {formError && (
                     <div className="rounded-[1.2rem] border border-red-300/30 bg-red-400/10 px-4 py-3 text-sm leading-6 text-red-100">
