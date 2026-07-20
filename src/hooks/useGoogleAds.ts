@@ -20,6 +20,8 @@ export function reportConversionAndRedirect(url: string) {
 
   w.gtag("event", "conversion", {
     send_to: GOOGLE_ADS.formConversionSendTo,
+    value: 1.0,
+    currency: "EUR",
     event_callback: redirect,
   });
 }
