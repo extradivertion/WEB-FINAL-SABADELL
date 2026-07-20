@@ -6,41 +6,6 @@ type GtagWindow = typeof window & {
   gtag?: (...args: unknown[]) => void;
 };
 
-export function useGoogleAdsTag() {
-  useEffect(() => {
-    const scriptId = "google-ads-gtag-js";
-    const configId = "google-ads-gtag-config";
-    const w = window as GtagWindow;
-
-    w.dataLayer = w.dataLayer || [];
-    w.gtag =
-      w.gtag ||
-      ((...args: unknown[]) => {
-        w.dataLayer?.push(args);
-      });
-
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-      script.id = scriptId;
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS.id}`;
-      document.head.appendChild(script);
-    }
-
-    if (!document.getElementById(configId)) {
-      const configScript = document.createElement("script");
-      configScript.id = configId;
-      configScript.textContent = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${GOOGLE_ADS.id}');
-      `;
-      document.head.appendChild(configScript);
-    }
-  }, []);
-}
-
 export function reportConversionAndRedirect(url: string) {
   const w = window as GtagWindow;
 
@@ -57,4 +22,34 @@ export function reportConversionAndRedirect(url: string) {
     send_to: GOOGLE_ADS.formConversionSendTo,
     event_callback: redirect,
   });
+}
+
+const CLICK_CONVERSIONS: { selector: string; sendTo: string }[] = [
+  { selector: 'a[href*="wa.me"]', sendTo: GOOGLE_ADS.whatsappConversionSendTo },
+  { selector: 'a[href^="tel:"]', sendTo: GOOGLE_ADS.phoneConversionSendTo },
+];
+
+/**
+ * Tracks every WhatsApp or phone link click as a Google Ads conversion via a
+ * single delegated listener, so new links of either kind don't need
+ * per-component wiring.
+ */
+export function useClickConversionTracking() {
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+
+      const w = window as GtagWindow;
+      for (const { selector, sendTo } of CLICK_CONVERSIONS) {
+        if (target.closest(selector)) {
+          w.gtag?.("event", "conversion", { send_to: sendTo });
+          return;
+        }
+      }
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, []);
 }

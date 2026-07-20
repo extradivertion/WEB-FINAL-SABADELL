@@ -13,6 +13,8 @@ export const BUSINESS = {
 export const GOOGLE_ADS = {
   id: "AW-18165194989",
   formConversionSendTo: "AW-18165194989/4dQGCJ7ej88cEO3B69VD",
+  whatsappConversionSendTo: "AW-18165194989/DFQsCL7lt9McEO3B69VD",
+  phoneConversionSendTo: "AW-18165194989/lN16CIiJuNMcEO3B69VD",
 } as const;
 
 export const getCanonicalUrl = (path: string) =>

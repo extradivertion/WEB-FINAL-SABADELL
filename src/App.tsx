@@ -2,7 +2,7 @@ import { BUSINESS } from "./data/business";
 import { getPageConfig } from "./data/pageConfigs";
 import { buildFaqs } from "./data/content";
 import { useSeoMeta } from "./hooks/useSeoMeta";
-import { useGoogleAdsTag } from "./hooks/useGoogleAds";
+import { useClickConversionTracking } from "./hooks/useGoogleAds";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -27,8 +27,8 @@ export default function App() {
   const pageConfig = getPageConfig(pathname);
   const faqs = buildFaqs(pageConfig);
 
-  useGoogleAdsTag();
   useSeoMeta(pageConfig, faqs, isThankYouPage);
+  useClickConversionTracking();
 
   if (isThankYouPage) {
     return <ThankYouPage />;
