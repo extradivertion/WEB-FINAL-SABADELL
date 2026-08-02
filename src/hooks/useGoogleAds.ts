@@ -11,6 +11,7 @@ const CONVERSION_TIMEOUT_MS = 1500;
 
 /**
  * Registra la conversión de formulario y redirige a `url`.
+ * El valor de la conversión se define en Google Ads, no aquí.
  * La redirección se ejecuta siempre y solo una vez: si gtag está bloqueado por
  * un adblocker o tarda demasiado, el usuario no se queda atascado en el form.
  */
@@ -33,8 +34,6 @@ export function reportConversionAndRedirect(url: string) {
 
   w.gtag("event", "conversion", {
     send_to: GOOGLE_ADS.formConversionSendTo,
-    value: 1.0,
-    currency: "EUR",
     event_callback: redirect,
     event_timeout: CONVERSION_TIMEOUT_MS,
   });
