@@ -14,7 +14,7 @@ export default function Hero({ pageConfig }: { pageConfig: PageConfig }) {
           src={image}
           alt=""
           aria-hidden="true"
-          fetchPriority={index === 0 ? "high" : undefined}
+          fetchPriority={index === 0 ? "high" : "low"}
           loading="eager"
           decoding={index === 0 ? "sync" : "async"}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
