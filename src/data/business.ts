@@ -16,7 +16,7 @@ export const BUSINESS = {
  * `send_to` de cada conversión.
  */
 export const GOOGLE_ADS = {
-  formConversionSendTo: "AW-18165194989/LsaoCOG8u9gcEO3B69VD",
+  formConversionSendTo: "AW-18165194989/fue-CO-i8tocEO3B69VD",
   whatsappConversionSendTo: "AW-18165194989/DFQsCL7lt9McEO3B69VD",
   phoneConversionSendTo: "AW-18165194989/lN16CIiJuNMcEO3B69VD",
 } as const;
