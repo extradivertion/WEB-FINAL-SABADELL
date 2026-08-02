@@ -5,7 +5,6 @@ import { NAV_SERVICES, NAV_ZONES } from "../data/content";
 const SECTION_LINKS = [
   { href: "#inicio", label: "Inicio" },
   { href: "#servicios", label: "Servicios DJ" },
-  { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#zonas", label: "Zonas de servicio" },
   { href: "#conocenos", label: "Sobre nosotros" },
   { href: "#equipo-disponible", label: "Equipo disponible" },
