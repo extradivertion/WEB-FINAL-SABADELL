@@ -33,15 +33,12 @@ const emptyForm = (location: string): ContactFormData => ({
 type UseContactFormOptions = {
   defaultLocation: string;
   pageLabel: string;
-  /** When true, a successful submit redirects to the /gracias page (used on the main SPA routes). */
-  redirectOnSuccess?: boolean;
 };
 
-export function useContactForm({ defaultLocation, pageLabel, redirectOnSuccess = true }: UseContactFormOptions) {
+export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOptions) {
   const [formData, setFormData] = useState<ContactFormData>(() => emptyForm(defaultLocation));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
-  const [formSent, setFormSent] = useState(false);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -59,7 +56,6 @@ export function useContactForm({ defaultLocation, pageLabel, redirectOnSuccess =
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError("");
-    setFormSent(false);
     setIsSubmitting(true);
 
     const payload = new FormData();
@@ -99,13 +95,7 @@ export function useContactForm({ defaultLocation, pageLabel, redirectOnSuccess =
         throw new Error("No se pudo enviar la solicitud");
       }
 
-      if (redirectOnSuccess) {
-        reportConversionAndRedirect(BUSINESS.thankYouPath);
-        return;
-      }
-
-      setFormSent(true);
-      setFormData(emptyForm(defaultLocation));
+      reportConversionAndRedirect(BUSINESS.thankYouPath);
     } catch (error) {
       console.error(error);
       setFormError(
@@ -116,5 +106,5 @@ export function useContactForm({ defaultLocation, pageLabel, redirectOnSuccess =
     }
   };
 
-  return { formData, isSubmitting, formError, formSent, handleInputChange, setField, handleSubmit };
+  return { formData, isSubmitting, formError, handleInputChange, setField, handleSubmit };
 }
