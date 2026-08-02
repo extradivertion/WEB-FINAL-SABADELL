@@ -140,6 +140,4 @@ export function useSeoMeta(pageConfig: PageConfig, faqs: FaqItem[], isThankYouPa
     }
     schemaScript.textContent = JSON.stringify(schema);
   }, [canonicalUrl, pageConfig, faqs, isThankYouPage]);
-
-  return { canonicalUrl };
 }
