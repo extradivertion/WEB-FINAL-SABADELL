@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import TrustBar from "./components/TrustBar";
 import Services from "./components/Services";
+import HowItWorks from "./components/HowItWorks";
 import Zones from "./components/Zones";
 import About from "./components/About";
 import Equipment from "./components/Equipment";
@@ -45,6 +46,7 @@ export default function App() {
         <Hero pageConfig={pageConfig} />
         <TrustBar pageConfig={pageConfig} />
         <Services pageConfig={pageConfig} />
+        <HowItWorks />
 
         <section className="mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-12">
           <Zones pageConfig={pageConfig} />

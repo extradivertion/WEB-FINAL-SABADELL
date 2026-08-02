@@ -4,6 +4,7 @@ import { BUSINESS } from "../data/business";
 const NAV_LINKS = [
   { href: "#inicio", label: "Inicio" },
   { href: "#servicios", label: "Servicios" },
+  { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#zonas", label: "Zonas" },
   { href: "#conocenos", label: "Conócenos" },
   { href: "#resultados", label: "Resultados" },
