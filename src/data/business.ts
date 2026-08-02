@@ -10,8 +10,12 @@ export const BUSINESS = {
   thankYouPath: "/gracias",
 } as const;
 
+/**
+ * Etiquetas de conversión de Google Ads.
+ * El tag global (AW-18165194989) se carga en index.html; aquí solo van los
+ * `send_to` de cada conversión.
+ */
 export const GOOGLE_ADS = {
-  id: "AW-18165194989",
   formConversionSendTo: "AW-18165194989/LsaoCOG8u9gcEO3B69VD",
   whatsappConversionSendTo: "AW-18165194989/DFQsCL7lt9McEO3B69VD",
   phoneConversionSendTo: "AW-18165194989/lN16CIiJuNMcEO3B69VD",
