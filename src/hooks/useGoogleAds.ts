@@ -6,10 +6,21 @@ type GtagWindow = typeof window & {
   gtag?: (...args: unknown[]) => void;
 };
 
+/** Margen máximo de espera a que gtag confirme la conversión antes de redirigir igualmente. */
+const CONVERSION_TIMEOUT_MS = 1500;
+
+/**
+ * Registra la conversión de formulario y redirige a `url`.
+ * La redirección se ejecuta siempre y solo una vez: si gtag está bloqueado por
+ * un adblocker o tarda demasiado, el usuario no se queda atascado en el form.
+ */
 export function reportConversionAndRedirect(url: string) {
   const w = window as GtagWindow;
 
+  let alreadyRedirected = false;
   const redirect = () => {
+    if (alreadyRedirected) return;
+    alreadyRedirected = true;
     window.location.href = url;
   };
 
@@ -18,11 +29,14 @@ export function reportConversionAndRedirect(url: string) {
     return;
   }
 
+  window.setTimeout(redirect, CONVERSION_TIMEOUT_MS);
+
   w.gtag("event", "conversion", {
     send_to: GOOGLE_ADS.formConversionSendTo,
     value: 1.0,
     currency: "EUR",
     event_callback: redirect,
+    event_timeout: CONVERSION_TIMEOUT_MS,
   });
 }
 
@@ -32,9 +46,9 @@ const CLICK_CONVERSIONS: { selector: string; sendTo: string }[] = [
 ];
 
 /**
- * Tracks every WhatsApp or phone link click as a Google Ads conversion via a
- * single delegated listener, so new links of either kind don't need
- * per-component wiring.
+ * Registra cada clic en un enlace de WhatsApp o teléfono como conversión de
+ * Google Ads mediante un único listener delegado, para no tener que cablear
+ * el tracking componente a componente.
  */
 export function useClickConversionTracking() {
   useEffect(() => {
