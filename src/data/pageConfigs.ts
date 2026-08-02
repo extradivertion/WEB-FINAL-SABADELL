@@ -71,7 +71,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Barcelona",
     heroSubtitle: "música que hará inolvidable tu evento en Barcelona",
-    heroImages: ["/dj-eventos-barcelona-montaje-iluminacion.jpg", "/dj-evento-barcelona-sonido-iluminacion.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Barcelona | Extradivertion",
     seoDescription:
       "DJ para eventos en Barcelona. Música, sonido e iluminación para fiestas privadas, empresas, discotecas, cumpleaños y celebraciones.",
@@ -101,7 +101,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Sabadell",
     heroSubtitle: "música, sonido e iluminación para eventos en Sabadell",
-    heroImages: ["/dj-fiesta-privada-sabadell.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Sabadell | Extradivertion",
     seoDescription:
       "DJ para eventos en Sabadell. Servicio para fiestas privadas, empresas, cumpleaños, discotecas y celebraciones con sonido e iluminación.",
@@ -131,7 +131,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Terrassa",
     heroSubtitle: "servicio DJ para fiestas, empresas y celebraciones en Terrassa",
-    heroImages: ["/fiesta-dj-barcelona-luces-ambiente.jpg", "/montaje-dj-profesional-barcelona.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Terrassa | Extradivertion",
     seoDescription:
       "DJ para eventos en Terrassa. Música, sonido e iluminación para fiestas privadas, empresas, cumpleaños y celebraciones.",
@@ -161,7 +161,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Sant Cugat",
     heroSubtitle: "música y montaje profesional para eventos en Sant Cugat",
-    heroImages: ["/dj-eventos-barcelona-montaje-iluminacion.jpg", "/sesion-dj-barcelona-evento.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Sant Cugat | Extradivertion",
     seoDescription:
       "DJ para eventos en Sant Cugat. Música, sonido e iluminación para fiestas privadas, empresas, cumpleaños y celebraciones.",
@@ -191,7 +191,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Rubí",
     heroSubtitle: "DJ para fiestas privadas, cumpleaños y eventos de empresa en Rubí",
-    heroImages: ["/fiesta-dj-barcelona-luces-ambiente.jpg", "/dj-fiesta-privada-valles-occidental.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Rubí | Extradivertion",
     seoDescription:
       "DJ para eventos en Rubí. Música, sonido e iluminación para fiestas privadas, cumpleaños, empresas y celebraciones.",
@@ -221,7 +221,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Cerdanyola",
     heroSubtitle: "servicio DJ para fiestas privadas, empresas y celebraciones en Cerdanyola",
-    heroImages: ["/dj-home-blue.jpg", "/evento-privado-musica-dj-barcelona.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Cerdanyola del Vallès | Extradivertion",
     seoDescription:
       "DJ para eventos en Cerdanyola del Vallès. Música, sonido e iluminación para fiestas privadas, empresas y celebraciones.",
@@ -251,7 +251,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Barberà",
     heroSubtitle: "música y sonido para eventos en Barberà del Vallès",
-    heroImages: ["/dj-eventos-barcelona-montaje-iluminacion.jpg", "/dj-fiesta-privada-valles-occidental.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Barberà del Vallès | Extradivertion",
     seoDescription:
       "DJ para eventos en Barberà del Vallès. Música, sonido e iluminación para fiestas privadas, empresas y celebraciones.",
@@ -281,7 +281,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Sant Quirze",
     heroSubtitle: "DJ para fiestas privadas, empresas y celebraciones en Sant Quirze",
-    heroImages: ["/fiesta-dj-barcelona-luces-ambiente.jpg", "/sesion-dj-barcelona-evento.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Sant Quirze del Vallès | Extradivertion",
     seoDescription:
       "DJ para eventos en Sant Quirze del Vallès. Música, sonido e iluminación para fiestas privadas, empresas y celebraciones.",
@@ -311,7 +311,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "Vallès Occidental",
     heroSubtitle: "servicio DJ para toda la comarca: Sabadell, Terrassa, Sant Cugat y alrededores",
-    heroImages: ["/dj-fiesta-privada-valles-occidental.jpg", "/montaje-dj-profesional-barcelona.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Vallès Occidental | Extradivertion",
     seoDescription:
       "DJ para eventos en Vallès Occidental. Servicio en Sabadell, Terrassa, Sant Cugat, Cerdanyola, Rubí y Barberà con sonido e iluminación.",
@@ -341,7 +341,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para eventos",
     heroLine2: "de empresa",
     heroSubtitle: "ambiente cuidado para cenas, afterworks y celebraciones corporativas",
-    heroImages: ["/evento-corporativo-dj-barcelona.jpg", "/servicio-corporativos.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos de empresa en Barcelona | Extradivertion",
     seoDescription:
       "DJ para eventos de empresa en Barcelona: cenas corporativas, afterworks y celebraciones internas. Música adaptada al tono del evento, sonido e iluminación.",
@@ -371,7 +371,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para fiestas",
     heroLine2: "privadas",
     heroSubtitle: "cumpleaños, celebraciones familiares y fiestas en locales o casas privadas",
-    heroImages: ["/fiesta-dj-barcelona-luces-ambiente.jpg", "/cabina-dj-evento-privado-barcelona.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para fiestas privadas en Barcelona | Extradivertion",
     seoDescription:
       "DJ para fiestas privadas en Barcelona: cumpleaños, celebraciones familiares y fiestas en locales o casas privadas. Música, sonido e iluminación.",
@@ -401,7 +401,7 @@ export const pageConfigs: PageConfig[] = [
     heroLine1: "DJ para bodas",
     heroLine2: "Barcelona",
     heroSubtitle: "música cuidada para el banquete y la fiesta, de principio a fin",
-    heroImages: ["/montaje-dj-profesional-barcelona.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
+    heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para bodas en Barcelona | Extradivertion",
     seoDescription:
       "DJ para bodas en Barcelona y Vallès Occidental. Música personalizada para banquete y fiesta, sonido, iluminación y coordinación previa con los novios.",
