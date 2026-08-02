@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { BUSINESS } from "./data/business";
 import { getPageConfig } from "./data/pageConfigs";
 import { buildFaqs } from "./data/content";
@@ -24,8 +26,10 @@ import ThankYouPage from "./components/ThankYouPage";
 export default function App() {
   const pathname = window.location.pathname.replace(/\/$/, "") || "/";
   const isThankYouPage = pathname === BUSINESS.thankYouPath;
-  const pageConfig = getPageConfig(pathname);
-  const faqs = buildFaqs(pageConfig);
+
+  // Memoizados para que el efecto de useSeoMeta no se vuelva a ejecutar en cada render.
+  const pageConfig = useMemo(() => getPageConfig(pathname), [pathname]);
+  const faqs = useMemo(() => buildFaqs(pageConfig), [pageConfig]);
 
   useSeoMeta(pageConfig, faqs, isThankYouPage);
   useClickConversionTracking();
