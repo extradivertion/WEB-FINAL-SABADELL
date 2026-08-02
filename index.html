@@ -4,31 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--
+      Meta por defecto (home). En el resto de rutas las sobrescribe useSeoMeta.ts,
+      que además inyecta el JSON-LD por página. No añadir aquí structured data:
+      se duplicaría con el del hook.
+    -->
     <title>DJ para eventos en Barcelona | Extradivertion</title>
     <meta
       name="description"
       content="DJ para eventos en Barcelona y Vallès Occidental: bodas, cumpleaños, fiestas privadas y empresas. Música, sonido e iluminación a medida."
     />
     <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href="https://extradivertion.com/" />
     <meta name="theme-color" content="#020617" />
-
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18165194989"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "AW-18165194989");
-    </script>
-    <link rel="preload" as="image" href="/dj-home-blue.jpg" fetchpriority="high" />
 
     <link rel="icon" type="image/png" href="/logo-sobre-nosotros.png" />
     <link rel="apple-touch-icon" href="/logo-sobre-nosotros.png" />
@@ -51,39 +39,16 @@
       content="Servicio de DJ para bodas, eventos privados, empresas, discotecas y celebraciones en Barcelona y Vallès Occidental."
     />
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "EntertainmentBusiness"],
-        "name": "Extradivertion",
-        "url": "https://extradivertion.com/",
-        "image": "https://extradivertion.com/logo-sobre-nosotros.png",
-        "email": "smextradivertion@gmail.com",
-        "telephone": "+34654685158",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Sabadell",
-          "addressRegion": "Barcelona",
-          "addressCountry": "ES"
-        },
-        "areaServed": [
-          "Barcelona",
-          "Sabadell",
-          "Terrassa",
-          "Sant Cugat del Vallès",
-          "Cerdanyola del Vallès",
-          "Rubí",
-          "Barberà del Vallès",
-          "Vallès Occidental"
-        ],
-        "description": "Servicio de DJ para eventos en Barcelona y Vallès Occidental: bodas, fiestas privadas, eventos de empresa y celebraciones a medida.",
-        "priceRange": "€€",
-        "makesOffer": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "DJ para bodas en Barcelona" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "DJ para fiestas privadas y eventos corporativos" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "DJ con sonido e iluminación para eventos" } }
-        ]
+    <!-- Google Ads (gtag.js). Los IDs de conversión viven en src/data/business.ts -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18165194989"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
+      gtag("js", new Date());
+      gtag("config", "AW-18165194989");
     </script>
   </head>
   <body>
