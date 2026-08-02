@@ -31,12 +31,6 @@ export function CtaButton({
   );
 }
 
-export function SectionKicker({ children }: { children: ReactNode }) {
-  return (
-    <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-700/80">{children}</p>
-  );
-}
-
 export function GradientText({
   children,
   className = "",
