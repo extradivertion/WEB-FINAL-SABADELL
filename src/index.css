@@ -13,3 +13,39 @@ body {
     scroll-behavior: auto;
   }
 }
+
+@keyframes clients-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-clients-scroll {
+  animation: clients-scroll 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-clients-scroll {
+    animation: none;
+  }
+}
+
+.services-mosaic {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 220px;
+}
+
+@media (min-width: 768px) {
+  .services-mosaic {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 150px);
+    grid-template-areas:
+      "bodas bodas fiestas fiestas"
+      "bodas bodas empresa cumple"
+      "locales locales empresa cumple";
+  }
+}

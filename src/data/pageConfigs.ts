@@ -31,7 +31,8 @@ export const pageConfigs: PageConfig[] = [
     cityShort: "BCN",
     heroLine1: "DJ para eventos",
     heroLine2: "Barcelona",
-    heroSubtitle: "Creamos la música, el ambiente y la fiesta perfecta para que tu evento sea inolvidable",
+    heroSubtitle:
+      "Presupuesto en menos de 1 hora. Rápido, sencillo y con toda la profesionalidad que tu evento merece.",
     heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
     seoTitle: "DJ para eventos en Barcelona | Extradivertion",
     seoDescription:

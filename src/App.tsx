@@ -8,7 +8,7 @@ import { useClickConversionTracking } from "./hooks/useGoogleAds";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import TrustBar from "./components/TrustBar";
+import ClientsCarousel from "./components/ClientsCarousel";
 import Services from "./components/Services";
 import Zones from "./components/Zones";
 import About from "./components/About";
@@ -43,7 +43,7 @@ export default function App() {
 
       <main>
         <Hero pageConfig={pageConfig} />
-        <TrustBar pageConfig={pageConfig} />
+        <ClientsCarousel />
         <Services pageConfig={pageConfig} />
 
         <section className="mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-12">

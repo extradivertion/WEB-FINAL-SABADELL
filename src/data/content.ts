@@ -22,46 +22,34 @@ export const NAV_SERVICES: { name: string; path: string }[] = [
 
 export type ServiceCard = {
   title: string;
-  text: string;
   image: string;
   link: string;
 };
 
 export const EVENT_SERVICE_CARDS: ServiceCard[] = [
   {
-    title: "DJ para bodas",
-    text: "Música coordinada para banquete y fiesta, con los momentos importantes cuidados al detalle.",
+    title: "Bodas",
     image: "/montaje-dj-profesional-barcelona.jpg",
     link: "/dj-bodas-barcelona",
   },
   {
-    title: "DJ para fiestas privadas",
-    text: "Cumpleaños, celebraciones familiares y fiestas en locales o casas privadas.",
+    title: "Fiestas privadas",
     image: "/servicio-fiestas.jpg",
     link: "/dj-fiestas-privadas-barcelona",
   },
   {
-    title: "DJ para eventos de empresa",
-    text: "Cenas corporativas, afterworks y celebraciones internas con un tono profesional.",
-    image: "/servicio-corporativos.jpg",
+    title: "Eventos de empresa",
+    image: "/evento-corporativo-dj-barcelona.jpg",
     link: "/dj-eventos-empresa-barcelona",
   },
   {
-    title: "DJ para discotecas y locales",
-    text: "Sesiones adaptadas al público, al horario y al tipo de sala o celebración.",
+    title: "Locales",
     image: "/servicio-discoteca.jpg",
     link: "#formulario",
   },
   {
-    title: "Tardeos, graduaciones y fiestas universitarias",
-    text: "Sesiones pensadas para público joven, con la energía adecuada según el momento del evento.",
-    image: "/servicio-privados.jpg",
-    link: "#formulario",
-  },
-  {
-    title: "Experiencias musicales a medida",
-    text: "Eventos deportivos, celebraciones especiales y formatos que no encajan en una categoría fija.",
-    image: "/servicio-medida.jpg",
+    title: "Cumpleaños",
+    image: "/fiesta-dj-barcelona-luces-ambiente.jpg",
     link: "#formulario",
   },
 ];
