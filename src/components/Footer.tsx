@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
 import type { PageConfig } from "../data/pageConfigs";
 import { BUSINESS } from "../data/business";
 import { NAV_SERVICES, NAV_ZONES } from "../data/content";
+import { ArrowRightIcon, LightningIcon, MailIcon, PhoneIcon, PlusIcon, WhatsAppIcon } from "./ui";
 
 const SECTION_LINKS = [
   { href: "#inicio", label: "Inicio" },
@@ -18,66 +20,64 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
     <footer className="border-t border-white/10 bg-slate-950 text-white">
       <div className="mx-auto max-w-7xl px-4 py-9 md:px-6 md:py-12">
         <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 shadow-[0_18px_40px_rgba(2,6,23,0.18)] backdrop-blur md:rounded-[2rem] md:p-8">
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-            <div className="max-w-md">
-              <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-sky-400" />
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-200">Extradivertion</p>
-              </div>
+          {/* Banda de cierre: último empujón al formulario */}
+          <a
+            href="#formulario"
+            className="group mb-8 flex flex-col gap-3 rounded-2xl border border-orange-400/30 bg-orange-500/[0.08] px-5 py-4 transition hover:border-orange-400/60 hover:bg-orange-500/[0.14] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p className="text-[15px] font-semibold leading-6 text-orange-50">
+              <LightningIcon className="mr-2 inline h-4 w-4 align-[-2px] text-orange-400" />
+              ¿Tienes fecha? Pide presupuesto y te respondemos en menos de 1 hora.
+            </p>
+            <span className="inline-flex shrink-0 items-center gap-2 text-[13px] font-black uppercase tracking-[0.14em] text-orange-300 transition group-hover:gap-3 group-hover:text-white">
+              Pedir presupuesto
+              <ArrowRightIcon className="h-4 w-4" />
+            </span>
+          </a>
 
-              <h2 className="mt-4 text-2xl font-black uppercase tracking-tight text-white md:text-3xl">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
+            <div>
+              <img
+                src="/logo-sobre-nosotros.png"
+                alt="Extradivertion"
+                width={789}
+                height={300}
+                loading="lazy"
+                decoding="async"
+                className="h-8 w-auto object-contain object-left invert"
+              />
+
+              <h2 className="mt-5 font-display text-2xl uppercase tracking-[0.005em] text-white md:text-3xl">
                 DJ para eventos en Barcelona
               </h2>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{pageConfig.footerLocationText}</p>
-              <p className="mt-2 text-sm leading-7 text-slate-400">
+              <p className="mt-3 max-w-md text-sm leading-7 text-slate-300">{pageConfig.footerLocationText}</p>
+              <p className="mt-2 max-w-md text-sm leading-7 text-slate-400">
                 Bodas, eventos privados, corporativos, discotecas y celebraciones a medida.
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                <a href={BUSINESS.whatsappHref} className="text-sky-200 transition hover:text-white">
-                  WhatsApp
-                </a>
-                <span aria-hidden="true" className="text-slate-600">
-                  ·
-                </span>
-                <a href={`mailto:${BUSINESS.email}`} className="text-sky-200 transition hover:text-white">
-                  {BUSINESS.email}
-                </a>
-                <span aria-hidden="true" className="text-slate-600">
-                  ·
-                </span>
-                <a href={`tel:${BUSINESS.phoneHref}`} className="text-sky-200 transition hover:text-white">
-                  {BUSINESS.phoneDisplay}
-                </a>
+              <div className="mt-6 grid gap-2.5">
+                <FooterContact href={BUSINESS.whatsappHref} icon={<WhatsAppIcon className="h-4 w-4" />} label="WhatsApp" />
+                <FooterContact href={`tel:${BUSINESS.phoneHref}`} icon={<PhoneIcon className="h-4 w-4" />} label={BUSINESS.phoneDisplay} />
+                <FooterContact href={`mailto:${BUSINESS.email}`} icon={<MailIcon className="h-4 w-4" />} label={BUSINESS.email} />
               </div>
             </div>
 
-            <nav aria-label="Navegación del footer" className="grid gap-2 text-sm text-slate-300">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Navegación</p>
-              {SECTION_LINKS.map((link) => (
-                <a key={link.href} href={link.href} className="transition hover:text-white">
-                  {link.label}
-                </a>
-              ))}
-
-              <div className="my-2 border-t border-white/10" />
-
-              {NAV_SERVICES.map((service) => (
-                <a key={service.path} href={service.path} className="transition hover:text-white">
-                  DJ {service.name.toLowerCase()}
-                </a>
-              ))}
-              {NAV_ZONES.map((zone) => (
-                <a key={zone.path} href={zone.path} className="transition hover:text-white">
-                  DJ eventos {zone.name}
-                </a>
-              ))}
+            <nav aria-label="Navegación del footer" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+              <FooterLinks title="Secciones" items={SECTION_LINKS.map((l) => ({ name: l.label, path: l.href }))} />
+              <FooterLinks
+                title="Servicios"
+                items={NAV_SERVICES.map((s) => ({ name: `DJ ${s.name.toLowerCase()}`, path: s.path }))}
+              />
+              <FooterLinks
+                title="Zonas"
+                items={NAV_ZONES.map((z) => ({ name: `DJ eventos ${z.name}`, path: z.path }))}
+              />
             </nav>
 
-            <div className="grid gap-2 text-sm text-slate-300 md:min-w-[240px]">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Legal</p>
-              <details className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                <summary className="cursor-pointer list-none font-medium text-white">Aviso legal</summary>
+            <div className="grid content-start gap-2.5 text-sm text-slate-300">
+              <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Legal</p>
+              <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition open:bg-white/[0.08] hover:border-white/20">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400">Aviso legal<span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-sky-200 transition duration-200 group-open:rotate-45 group-open:bg-sky-400 group-open:text-slate-950"><PlusIcon className="h-3 w-3" /></span></summary>
                 <div className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
                   <p>
                     El titular de esta web es <strong>Extradivertion</strong>.
@@ -100,8 +100,8 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
                   </p>
                 </div>
               </details>
-              <details className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                <summary className="cursor-pointer list-none font-medium text-white">Política de privacidad</summary>
+              <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition open:bg-white/[0.08] hover:border-white/20">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400">Política de privacidad<span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-sky-200 transition duration-200 group-open:rotate-45 group-open:bg-sky-400 group-open:text-slate-950"><PlusIcon className="h-3 w-3" /></span></summary>
                 <div className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
                   <p>
                     <strong>Responsable:</strong> Extradivertion.
@@ -123,8 +123,8 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
                   </p>
                 </div>
               </details>
-              <details className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                <summary className="cursor-pointer list-none font-medium text-white">Política de cookies</summary>
+              <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition open:bg-white/[0.08] hover:border-white/20">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400">Política de cookies<span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-sky-200 transition duration-200 group-open:rotate-45 group-open:bg-sky-400 group-open:text-slate-950"><PlusIcon className="h-3 w-3" /></span></summary>
                 <div className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
                   <p>
                     Esta web usa cookies técnicas necesarias para su funcionamiento y cookies de Google Ads para medir
@@ -137,8 +137,8 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
                   </p>
                 </div>
               </details>
-              <details className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-                <summary className="cursor-pointer list-none font-medium text-white">Condiciones de contratación</summary>
+              <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition open:bg-white/[0.08] hover:border-white/20">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400">Condiciones de contratación<span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-sky-200 transition duration-200 group-open:rotate-45 group-open:bg-sky-400 group-open:text-slate-950"><PlusIcon className="h-3 w-3" /></span></summary>
                 <div className="mt-3 space-y-2 text-sm leading-6 text-slate-300">
                   <p>Las solicitudes enviadas desde esta web no constituyen contratación automática del servicio.</p>
                   <p>
@@ -157,5 +157,39 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterContact({ href, icon, label }: { href: string; icon: ReactNode; label: string }) {
+  return (
+    <a
+      href={href}
+      className="group inline-flex w-fit max-w-full items-center gap-2.5 text-sm text-slate-300 transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+    >
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sky-300 transition group-hover:border-sky-300/40 group-hover:bg-sky-300/15">
+        {icon}
+      </span>
+      <span className="truncate font-semibold">{label}</span>
+    </a>
+  );
+}
+
+function FooterLinks({ title, items }: { title: string; items: { name: string; path: string }[] }) {
+  return (
+    <div>
+      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">{title}</p>
+      <ul className="grid gap-2 text-sm text-slate-300">
+        {items.map((item) => (
+          <li key={item.path}>
+            <a
+              href={item.path}
+              className="inline-block transition hover:translate-x-0.5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

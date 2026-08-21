@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type RefObject } from 
 import type { PageConfig } from "../data/pageConfigs";
 import { BUSINESS } from "../data/business";
 import { useContactForm, type ContactFormData } from "../hooks/useContactForm";
+import { ArrowRightIcon, CheckIcon, LightningIcon, PlusIcon } from "./ui";
 
 type StepBase = {
   field: keyof ContactFormData;
@@ -57,6 +58,17 @@ const STEPS: Step[] = [
   { kind: "choice", field: "venueType", question: "¿Se celebrará en exterior o en interior?", required: false, options: ["Exterior", "Interior", "Ambos"] },
   { kind: "textarea", field: "details", question: "¿Algo más que debamos saber?", required: false, placeholder: "Estilo musical, momentos especiales, horario exacto..." },
 ];
+
+const START_POINTS = ["Sin compromiso", "2 minutos", "Te respondemos hoy"];
+
+// Agrupa los 11 pasos en 3 fases para el carril lateral
+const PHASES = [
+  { label: "Tus datos", detail: "Nombre, teléfono y email", upTo: 2 },
+  { label: "El evento", detail: "Tipo, sitio, fecha e invitados", upTo: 6 },
+  { label: "Detalles", detail: "Horas, sonido y espacio", upTo: 10 },
+];
+
+const getPhaseIndex = (step: number) => PHASES.findIndex((phase) => step <= phase.upTo);
 
 const fieldClass =
   "w-full border-b-2 border-white/20 bg-transparent pb-3 text-2xl text-white placeholder:text-slate-400 outline-none transition focus:border-sky-300 md:text-3xl";
@@ -123,28 +135,86 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
   const progress = Math.round((currentStep / STEPS.length) * 100);
 
   return (
-    <div
-      id="formulario"
-      style={{ scrollMarginTop: "90px" }}
-      className="rounded-[1.5rem] border border-white/15 bg-white/10 p-5 shadow-[0_18px_45px_rgba(2,6,23,0.18)] backdrop-blur md:rounded-[2rem] md:p-8"
-    >
-      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-sky-200">Presupuesto DJ para eventos</p>
-      <h2 className="mt-3 text-[28px] font-black uppercase leading-[0.96] tracking-tight text-white md:text-5xl">
-        Solicita tu propuesta <span className="block text-sky-200">para el evento</span>
-      </h2>
+    <div id="formulario" style={{ scrollMarginTop: "90px" }}>
+      {/* Marco naranja: es la única sección de la web con este acento */}
+      <div className="rounded-[1.75rem] bg-gradient-to-br from-orange-400 via-orange-500 to-amber-400 p-[3px] shadow-[0_28px_70px_rgba(249,115,22,0.30)] md:rounded-[2.1rem]">
+        <div className="relative isolate overflow-hidden rounded-[1.6rem] bg-slate-950 p-6 md:rounded-[1.95rem] md:p-9 lg:p-10">
+          <div className="pointer-events-none absolute -right-24 -top-28 -z-10 h-72 w-72 rounded-full bg-orange-500/15 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 -left-24 -z-10 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+
+          <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
+            {/* Carril: qué te vamos a preguntar */}
+            <aside className="lg:border-r lg:border-white/10 lg:pr-10">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-300">
+                {started ? "Tu progreso" : "Solo 3 bloques"}
+              </p>
+
+              <ol className="mt-4 grid gap-3">
+                {PHASES.map((phase, index) => {
+                  const activa = started && getPhaseIndex(currentStep) === index;
+                  const hecha = started && getPhaseIndex(currentStep) > index;
+                  return (
+                    <li key={phase.label} className="flex items-start gap-3">
+                      <span
+                        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[12px] font-black transition ${
+                          hecha
+                            ? "bg-orange-500 text-white"
+                            : activa
+                              ? "bg-white text-slate-950 ring-4 ring-orange-500/30"
+                              : "border border-white/20 bg-white/5 text-slate-300"
+                        }`}
+                      >
+                        {hecha ? <CheckIcon className="h-3.5 w-3.5" /> : index + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className={`text-sm font-bold ${activa || hecha ? "text-white" : "text-slate-300"}`}>
+                          {phase.label}
+                        </p>
+                        <p className="mt-0.5 text-[12px] leading-5 text-slate-400">{phase.detail}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+
+              <ul className="mt-6 grid gap-2 border-t border-white/10 pt-5">
+                {START_POINTS.map((point) => (
+                  <li key={point} className="flex items-center gap-2 text-[13px] font-semibold text-slate-300">
+                    <CheckIcon className="h-4 w-4 shrink-0 text-orange-400" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+
+            {/* Contenido */}
+            <div className="min-w-0">
+              <p className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] text-slate-950">
+                <LightningIcon className="h-3.5 w-3.5" />
+                Respuesta en menos de 1 hora
+              </p>
+              <h2 className="mt-4 font-display text-[30px] uppercase leading-[0.95] tracking-[0.005em] text-white sm:text-4xl md:text-[52px]">
+                Solicita tu propuesta
+                <span className="block bg-gradient-to-r from-orange-200 via-amber-200 to-orange-400 bg-clip-text text-transparent">
+                  para el evento
+                </span>
+              </h2>
 
       {!started ? (
         <>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">
+          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-slate-200 md:text-base">
             Responde unas preguntas rápidas y sencillas sobre tu evento en {pageConfig.city}. Solo te llevará un par
             de minutos y te responderemos con una propuesta a medida.
           </p>
+
           <button
             type="button"
             onClick={() => setStarted(true)}
-            className="mt-6 rounded-full bg-white px-7 py-4 text-base font-semibold text-sky-900 shadow-[0_16px_34px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
+            className="relative mt-8 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 px-8 py-4 text-base font-black uppercase tracking-[0.02em] text-slate-950 shadow-[0_16px_38px_rgba(249,115,22,0.45)] transition hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
           >
-            Pedir presupuesto
+            <LightningIcon />
+            Empezar ahora
+            <ArrowRightIcon className="h-5 w-5" />
           </button>
         </>
       ) : (
@@ -156,9 +226,16 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
               </span>
               <span>{progress}% completado</span>
             </div>
-            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+            <div
+              className="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-white/15"
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Progreso del formulario"
+            >
               <div
-                className="h-full rounded-full bg-sky-300 transition-all duration-300"
+                className="h-full rounded-full bg-gradient-to-r from-sky-300 via-cyan-200 to-sky-100 shadow-[0_0_12px_rgba(125,211,252,0.6)] transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -180,13 +257,22 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
                         key={option}
                         type="button"
                         onClick={() => handleChoiceSelect(option)}
-                        className={`rounded-2xl border px-4 py-3.5 text-left text-base font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 ${
+                        aria-pressed={selected}
+                        className={`flex items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left text-base font-semibold transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 ${
                           selected
-                            ? "border-sky-300 bg-sky-300/20 text-white"
-                            : "border-white/15 bg-white/5 text-slate-100 hover:border-sky-300/50 hover:bg-white/10"
+                            ? "border-sky-300 bg-sky-300/20 text-white shadow-[0_10px_24px_rgba(125,211,252,0.18)]"
+                            : "border-white/15 bg-white/5 text-slate-100 hover:-translate-y-0.5 hover:border-sky-300/50 hover:bg-white/10"
                         }`}
                       >
                         {option}
+                        <span
+                          aria-hidden="true"
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition ${
+                            selected ? "border-sky-200 bg-sky-200 text-sky-900" : "border-white/25 text-transparent"
+                          }`}
+                        >
+                          <CheckIcon className="h-3.5 w-3.5" />
+                        </span>
                       </button>
                     );
                   })}
@@ -239,9 +325,10 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
               <button
                 type="button"
                 onClick={goBack}
-                className="text-sm font-semibold text-slate-300 transition hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-300"
               >
-                ← Atrás
+                <ArrowRightIcon className="h-4 w-4 rotate-180" />
+                Atrás
               </button>
             ) : (
               <span aria-hidden="true" />
@@ -252,9 +339,10 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
                 <button
                   type="button"
                   onClick={goNext}
-                  className="text-sm font-semibold text-slate-300 transition hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-300"
                 >
                   Saltar esta pregunta
+                  <ArrowRightIcon className="h-4 w-4" />
                 </button>
               )
             ) : (
@@ -262,8 +350,9 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
                 type="button"
                 onClick={goNext}
                 disabled={isSubmitting}
-                className="rounded-full bg-white px-7 py-3 text-base font-semibold text-sky-900 shadow-[0_12px_30px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-base font-bold text-sky-900 shadow-[0_12px_30px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
               >
+                {isLastStep && !isSubmitting && <LightningIcon />}
                 {isSubmitting
                   ? "Enviando..."
                   : isLastStep
@@ -271,6 +360,7 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
                     : !step.required && currentValue.trim() === ""
                       ? "Saltar"
                       : "Siguiente"}
+                {!isLastStep && !isSubmitting && <ArrowRightIcon className="h-5 w-5" />}
               </button>
             )}
           </div>
@@ -284,9 +374,15 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
             </div>
           )}
 
-          <details className="mt-6 rounded-[1.2rem] border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300">
-            <summary className="cursor-pointer list-none font-semibold text-white">
+          <details className="group mt-6 rounded-[1.25rem] border border-white/10 bg-white/5 px-5 py-4 text-sm text-slate-300 transition open:bg-white/[0.08]">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300">
               Información sobre protección de datos
+              <span
+                aria-hidden="true"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-sky-200 transition duration-200 group-open:rotate-45 group-open:bg-sky-300 group-open:text-sky-900"
+              >
+                <PlusIcon className="h-3.5 w-3.5" />
+              </span>
             </summary>
             <div className="mt-3 space-y-2 leading-6 text-slate-300">
               <p>
@@ -314,6 +410,10 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
           </details>
         </form>
       )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

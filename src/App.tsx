@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ClientsCarousel from "./components/ClientsCarousel";
 import Services from "./components/Services";
+import QuoteCta from "./components/QuoteCta";
 import Zones from "./components/Zones";
 import About from "./components/About";
 import Equipment from "./components/Equipment";
@@ -44,13 +45,12 @@ export default function App() {
       <main>
         <Hero pageConfig={pageConfig} />
         <ClientsCarousel />
-        <Services pageConfig={pageConfig} />
+        <Services />
+        <QuoteCta />
 
-        <section className="mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-12">
-          <Zones pageConfig={pageConfig} />
-        </section>
+        <Zones pageConfig={pageConfig} />
 
-        <section className="mx-auto max-w-7xl px-4 py-7 md:px-6 md:py-10">
+        <section className="mx-auto max-w-7xl px-4 py-3 md:px-6 md:py-3">
           <div className="grid gap-6">
             <About />
             <Equipment />
@@ -63,10 +63,21 @@ export default function App() {
 
         <section
           id="contacto"
-          className="border-t border-sky-100 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 text-white"
+          className="relative bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 pb-3 pt-20 text-white md:pt-28"
         >
-          <div className="mx-auto max-w-7xl px-4 py-9 md:px-6 md:py-12">
-            <div className="grid gap-10">
+          {/* Fundido de entrada: del gris de la página al azul, sin corte seco */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-slate-100 via-slate-100/45 to-slate-100/0 md:h-28"
+          />
+          {/* Fundido de salida hacia el negro del pie */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-slate-950/0 to-slate-950 md:h-20"
+          />
+
+          <div className="relative mx-auto max-w-7xl px-4 md:px-6">
+            <div className="grid gap-6">
               <ContactForm pageConfig={pageConfig} />
               <DirectContact />
             </div>

@@ -11,17 +11,18 @@ export const NAV_ZONES: { name: string; path: string }[] = [
   { name: "Rubí", path: "/dj-eventos-rubi" },
   { name: "Barberà del Vallès", path: "/dj-eventos-barbera-del-valles" },
   { name: "Sant Quirze del Vallès", path: "/dj-eventos-sant-quirze-del-valles" },
+  { name: "Vallès Occidental", path: "/dj-eventos-valles-occidental" },
 ];
 
 export const NAV_SERVICES: { name: string; path: string }[] = [
   { name: "Bodas", path: "/dj-bodas-barcelona" },
   { name: "Fiestas privadas", path: "/dj-fiestas-privadas-barcelona" },
   { name: "Eventos de empresa", path: "/dj-eventos-empresa-barcelona" },
-  { name: "Vallès Occidental", path: "/dj-eventos-valles-occidental" },
 ];
 
 export type ServiceCard = {
   title: string;
+  description: string;
   image: string;
   link: string;
 };
@@ -29,27 +30,37 @@ export type ServiceCard = {
 export const EVENT_SERVICE_CARDS: ServiceCard[] = [
   {
     title: "Bodas",
-    image: "/montaje-dj-profesional-barcelona.jpg",
+    description:
+      "Música coordinada para el banquete y la fiesta, con los momentos importantes cuidados al detalle.",
+    image: "/dj-bodas-barcelona.jpg",
     link: "/dj-bodas-barcelona",
   },
   {
     title: "Fiestas privadas",
-    image: "/servicio-fiestas.jpg",
+    description:
+      "Celebraciones familiares y fiestas en locales o casas privadas, con el montaje adaptado al espacio.",
+    image: "/dj-fiestas-privadas-barcelona.jpg",
     link: "/dj-fiestas-privadas-barcelona",
   },
   {
-    title: "Eventos de empresa",
-    image: "/evento-corporativo-dj-barcelona.jpg",
+    title: "Cumpleaños",
+    description:
+      "Sesiones ajustadas a la edad y al ambiente que busques, del rato tranquilo a la pista llena.",
+    image: "/dj-cumpleanos-barcelona.jpg",
+    link: "#formulario",
+  },
+  {
+    title: "Eventos corporativos",
+    description:
+      "Cenas de empresa, afterworks y celebraciones internas con un tono profesional.",
+    image: "/dj-eventos-corporativos-barcelona.jpg",
     link: "/dj-eventos-empresa-barcelona",
   },
   {
     title: "Locales",
-    image: "/servicio-discoteca.jpg",
-    link: "#formulario",
-  },
-  {
-    title: "Cumpleaños",
-    image: "/fiesta-dj-barcelona-luces-ambiente.jpg",
+    description:
+      "Sesiones adaptadas al público, al horario y al tipo de sala o discoteca.",
+    image: "/dj-locales-discotecas-barcelona.jpg",
     link: "#formulario",
   },
 ];
