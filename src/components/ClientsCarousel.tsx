@@ -41,7 +41,7 @@ function ClientLogo({ client }: { client: Client }) {
     <img
       src={client.logo}
       alt={client.name}
-      className={`w-auto max-h-[14vh] shrink-0 object-contain transition hover:scale-105 ${SIZE_CLASSES[client.size ?? "md"]}`}
+      className={`w-auto max-h-[14vh] shrink-0 object-contain mix-blend-multiply transition hover:scale-105 ${SIZE_CLASSES[client.size ?? "md"]}`}
       decoding="async"
       onError={() => setFailed(true)}
     />
@@ -51,7 +51,7 @@ function ClientLogo({ client }: { client: Client }) {
 export default function ClientsCarousel() {
   return (
     <section
-      className="relative z-10 -mt-5 w-full bg-gradient-to-b from-white via-white to-slate-100 pb-5 pt-3 md:-mt-6 md:pb-7 md:pt-3"
+      className="relative z-10 -mt-5 w-full bg-white pb-5 pt-3 md:-mt-6 md:pb-7 md:pt-3"
       aria-label="Marcas y espacios donde ha pinchado Extradivertion"
     >
       {/*
@@ -67,7 +67,7 @@ export default function ClientsCarousel() {
 
       {/* Halo de luz en la costura: el hero parece iluminar la cinta desde detrás */}
       <div
-        className="pointer-events-none absolute -top-16 left-1/2 h-32 w-[85%] -translate-x-1/2 rounded-[50%] bg-sky-200/25 blur-3xl md:-top-[10vh] md:h-[22vh] md:w-[70%]"
+        className="pointer-events-none absolute -top-24 left-1/2 h-24 w-[85%] -translate-x-1/2 rounded-[50%] bg-sky-200/25 blur-3xl md:-top-[14vh] md:h-[14vh] md:w-[70%]"
         aria-hidden="true"
       />
 
@@ -98,6 +98,12 @@ export default function ClientsCarousel() {
           aria-hidden="true"
         />
       </div>
+
+      {/* Fundido de salida al gris de la pagina, por debajo de los logos */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-5 bg-gradient-to-b from-white to-slate-100 md:h-7"
+        aria-hidden="true"
+      />
     </section>
   );
 }
