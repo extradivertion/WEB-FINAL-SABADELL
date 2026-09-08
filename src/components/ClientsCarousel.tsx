@@ -54,9 +54,20 @@ export default function ClientsCarousel() {
       className="relative z-10 -mt-5 w-full bg-gradient-to-b from-white via-white to-slate-100 pb-5 pt-3 md:-mt-6 md:pb-7 md:pt-3"
       aria-label="Marcas y espacios donde ha pinchado Extradivertion"
     >
-      {/* Fundido de entrada: del hero al blanco de la cinta */}
+      {/*
+        Fundido de entrada desde el hero. El degradado no es lineal: arranca
+        casi invisible y sube de golpe al final, que es como el ojo espera que
+        se disuelva una foto. Un fundido lineal deja un borde perceptible justo
+        donde empieza.
+      */}
       <div
-        className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-b from-transparent to-white md:-top-[4vh] md:h-[4vh]"
+        className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.05)_26%,rgba(255,255,255,0.18)_46%,rgba(255,255,255,0.45)_64%,rgba(255,255,255,0.78)_80%,rgba(255,255,255,0.95)_91%,rgb(255,255,255)_100%)] md:-top-[15vh] md:h-[15vh]"
+        aria-hidden="true"
+      />
+
+      {/* Halo de luz en la costura: el hero parece iluminar la cinta desde detrás */}
+      <div
+        className="pointer-events-none absolute -top-16 left-1/2 h-32 w-[85%] -translate-x-1/2 rounded-[50%] bg-sky-200/25 blur-3xl md:-top-[10vh] md:h-[22vh] md:w-[70%]"
         aria-hidden="true"
       />
 

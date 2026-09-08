@@ -31,7 +31,7 @@ export default function Hero({ pageConfig }: { pageConfig: PageConfig }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_28%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(125,211,252,0.08),transparent_32%)]" />
 
-      <div className="relative mx-auto w-full max-w-7xl px-4 py-14 md:px-6 md:pt-[clamp(1.5rem,5vh,3.5rem)] md:pb-[clamp(4.5rem,11vh,6rem)]">
+      <div className="relative mx-auto w-full max-w-7xl px-4 pb-28 pt-14 md:px-6 md:pt-[clamp(1.5rem,5vh,3.5rem)] md:pb-[clamp(7rem,17vh,9rem)]">
         <div className="mx-auto max-w-5xl text-center">
           <h1
             className="text-[38px] font-display uppercase leading-[0.92] tracking-[0.005em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] sm:text-6xl md:text-[clamp(3.25rem,min(7.6vw,13.5vh),7rem)]"
