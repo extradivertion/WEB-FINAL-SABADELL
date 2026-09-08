@@ -21,6 +21,11 @@ const CLIENTS: Client[] = [
   { name: "Bodas.net", logo: "/logos/bodas-net.png" },
 ];
 
+// Copias de la lista que forman la cinta. La animación desplaza exactamente
+// una copia (-25% de la pista), así que el salto de vuelta es invisible.
+// Con 4 copias siempre queda cinta de sobra para cubrir pantallas anchas.
+const COPIES = 4;
+
 function ClientLogo({ client }: { client: Client }) {
   const [failed, setFailed] = useState(false);
 
@@ -37,32 +42,50 @@ function ClientLogo({ client }: { client: Client }) {
       src={client.logo}
       alt={client.name}
       className={`w-auto max-h-[14vh] shrink-0 object-contain transition hover:scale-105 ${SIZE_CLASSES[client.size ?? "md"]}`}
-      loading="lazy"
+      decoding="async"
       onError={() => setFailed(true)}
     />
   );
 }
 
 export default function ClientsCarousel() {
-  const track = [...CLIENTS, ...CLIENTS];
-
   return (
     <section
-      className="relative z-10 -mt-5 w-full border-b border-slate-200 bg-white pb-2 pt-3 md:-mt-6 md:pt-3"
+      className="relative z-10 -mt-5 w-full bg-gradient-to-b from-white via-white to-slate-100 pb-12 pt-3 md:-mt-6 md:pb-16 md:pt-3"
       aria-label="Marcas y espacios donde ha pinchado Extradivertion"
     >
+      {/* Fundido de entrada: del hero al blanco de la cinta */}
       <div
         className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-b from-transparent to-white md:-top-[4vh] md:h-[4vh]"
         aria-hidden="true"
       />
 
-
       <div className="relative overflow-hidden">
-        <div className="flex w-max animate-clients-scroll items-center gap-8 md:gap-12">
-          {track.map((client, index) => (
-            <ClientLogo key={`${client.name}-${index}`} client={client} />
+        <div className="flex w-max animate-clients-scroll">
+          {Array.from({ length: COPIES }, (_, copy) => (
+            <ul
+              key={copy}
+              className="flex shrink-0 list-none items-center gap-8 pr-8 md:gap-12 md:pr-12"
+              aria-hidden={copy > 0}
+            >
+              {CLIENTS.map((client) => (
+                <li key={client.name} className="flex shrink-0 items-center">
+                  <ClientLogo client={client} />
+                </li>
+              ))}
+            </ul>
           ))}
         </div>
+
+        {/* Fundidos laterales: los logos entran y salen sin corte seco */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent md:w-24"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent md:w-24"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );

@@ -22,15 +22,24 @@ body {
 
 @keyframes clients-scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    /* Una copia exacta de las 4 de la cinta: el salto de vuelta no se ve. */
+    transform: translate3d(-25%, 0, 0);
   }
 }
 
 .animate-clients-scroll {
-  animation: clients-scroll 28s linear infinite;
+  animation: clients-scroll 13s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .animate-clients-scroll {
+    animation-duration: 16s;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
