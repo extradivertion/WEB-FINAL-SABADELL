@@ -1,10 +1,10 @@
 export const BUSINESS = {
   name: "Extradivertion",
-  phoneDisplay: "654 685 158",
-  phoneHref: "+34654685158",
+  phoneDisplay: "644 353 133",
+  phoneHref: "+34644353133",
   email: "smextradivertion@gmail.com",
   whatsappHref:
-    "https://wa.me/34654685158?text=Hola%2C%20quiero%20pedir%20presupuesto%20para%20un%20evento.",
+    "https://wa.me/34644353133?text=Hola%2C%20quiero%20pedir%20presupuesto%20para%20un%20evento.",
   formSubmitAction: "https://formsubmit.co/ajax/smextradivertion@gmail.com",
   siteUrl: "https://extradivertion.com",
   thankYouPath: "/gracias",

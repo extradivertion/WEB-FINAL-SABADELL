@@ -47,7 +47,7 @@ const HOURS_OPTIONS = ["2 horas", "3 horas", "4 horas", "5 horas", "6 horas", "M
 
 const STEPS: Step[] = [
   { kind: "field", field: "name", question: "¿Cuál es tu nombre?", required: true, type: "text", placeholder: "ej: Álvaro Martínez", autoComplete: "name" },
-  { kind: "field", field: "phone", question: "¿Cuál es tu teléfono?", required: true, type: "tel", placeholder: "ej: 654 685 158", autoComplete: "tel" },
+  { kind: "field", field: "phone", question: "¿Cuál es tu teléfono?", required: true, type: "tel", placeholder: "ej: 644 353 133", autoComplete: "tel" },
   { kind: "field", field: "email", question: "¿Cuál es tu email?", required: true, type: "email", placeholder: "ej: nombre@email.com", autoComplete: "email" },
   { kind: "choice", field: "eventType", question: "¿Qué tipo de evento es?", required: true, options: EVENT_TYPE_OPTIONS },
   { kind: "field", field: "location", question: "¿Dónde se celebra el evento?", required: true, type: "text", placeholder: "ej: Barcelona, Sabadell...", autoComplete: "address-level2" },
