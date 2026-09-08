@@ -5,13 +5,11 @@ import { reportConversionAndRedirect } from "./useGoogleAds";
 export type ContactFormData = {
   name: string;
   phone: string;
-  email: string;
   eventType: string;
   eventDate: string;
   location: string;
   guests: string;
   hours: string;
-  soundEquipment: string;
   venueType: string;
   details: string;
 };
@@ -19,13 +17,11 @@ export type ContactFormData = {
 const emptyForm = (location: string): ContactFormData => ({
   name: "",
   phone: "",
-  email: "",
   eventType: "",
   eventDate: "",
   location,
   guests: "",
   hours: "",
-  soundEquipment: "",
   venueType: "",
   details: "",
 });
@@ -61,19 +57,16 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
     const payload = new FormData();
     payload.append("Nombre", formData.name);
     payload.append("Teléfono", formData.phone);
-    payload.append("Email", formData.email);
     payload.append("Tipo de evento", formData.eventType);
     payload.append("Fecha del evento", formData.eventDate || "No indicada");
     payload.append("Ubicación", formData.location || defaultLocation || "No indicada");
     payload.append("Página local", pageLabel);
     payload.append("Nº de personas aprox.", formData.guests || "No indicado");
     payload.append("Horas de servicio", formData.hours || "No indicado");
-    payload.append("Equipo de sonido en el lugar", formData.soundEquipment || "No indicado");
     payload.append("Interior o exterior", formData.venueType || "No indicado");
     payload.append("Detalles del evento", formData.details || "No indicado");
     payload.append("Página de origen", window.location.href);
     payload.append("_subject", "Nueva solicitud de presupuesto · Extradivertion");
-    payload.append("_replyto", formData.email);
     payload.append("_template", "table");
     payload.append("_captcha", "false");
     payload.append("_url", `${BUSINESS.siteUrl}/`);

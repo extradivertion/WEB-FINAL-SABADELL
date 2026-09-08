@@ -48,24 +48,22 @@ const HOURS_OPTIONS = ["2 horas", "3 horas", "4 horas", "5 horas", "6 horas", "M
 const STEPS: Step[] = [
   { kind: "field", field: "name", question: "¿Cuál es tu nombre?", required: true, type: "text", placeholder: "ej: Álvaro Martínez", autoComplete: "name" },
   { kind: "field", field: "phone", question: "¿Cuál es tu teléfono?", required: true, type: "tel", placeholder: "ej: 644 353 133", autoComplete: "tel" },
-  { kind: "field", field: "email", question: "¿Cuál es tu email?", required: true, type: "email", placeholder: "ej: nombre@email.com", autoComplete: "email" },
   { kind: "choice", field: "eventType", question: "¿Qué tipo de evento es?", required: true, options: EVENT_TYPE_OPTIONS },
   { kind: "field", field: "location", question: "¿Dónde se celebra el evento?", required: true, type: "text", placeholder: "ej: Barcelona, Sabadell...", autoComplete: "address-level2" },
   { kind: "field", field: "eventDate", question: "¿Qué fecha tiene el evento?", required: false, type: "date" },
   { kind: "field", field: "guests", question: "¿Cuántos invitados aproximadamente?", required: false, type: "text", placeholder: "ej: 80", inputMode: "numeric" },
   { kind: "choice", field: "hours", question: "¿Cuántas horas de servicio necesitas?", required: false, options: HOURS_OPTIONS },
-  { kind: "choice", field: "soundEquipment", question: "¿El lugar del evento cuenta con equipo de sonido?", required: false, options: ["Sí", "No", "No lo sé"] },
-  { kind: "choice", field: "venueType", question: "¿Se celebrará en exterior o en interior?", required: false, options: ["Exterior", "Interior", "Ambos"] },
+  { kind: "choice", field: "venueType", question: "¿Se celebrará en exterior o en interior?", required: false, options: ["Exterior", "Interior", "Ambos", "No lo sé"] },
   { kind: "textarea", field: "details", question: "¿Algo más que debamos saber?", required: false, placeholder: "Estilo musical, momentos especiales, horario exacto..." },
 ];
 
 const START_POINTS = ["Sin compromiso", "2 minutos", "Te respondemos hoy"];
 
-// Agrupa los 11 pasos en 3 fases para el carril lateral
+// Agrupa los 9 pasos en 3 fases para el carril lateral
 const PHASES = [
-  { label: "Tus datos", detail: "Nombre, teléfono y email", upTo: 2 },
-  { label: "El evento", detail: "Tipo, sitio, fecha e invitados", upTo: 6 },
-  { label: "Detalles", detail: "Horas, sonido y espacio", upTo: 10 },
+  { label: "Tus datos", detail: "Nombre y teléfono", upTo: 1 },
+  { label: "El evento", detail: "Tipo, sitio, fecha e invitados", upTo: 5 },
+  { label: "Detalles", detail: "Horas, espacio y extras", upTo: 8 },
 ];
 
 const getPhaseIndex = (step: number) => PHASES.findIndex((phase) => step <= phase.upTo);
@@ -201,22 +199,15 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
               </h2>
 
       {!started ? (
-        <>
-          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-slate-200 md:text-base">
-            Responde unas preguntas rápidas y sencillas sobre tu evento en {pageConfig.city}. Solo te llevará un par
-            de minutos y te responderemos con una propuesta a medida.
-          </p>
-
-          <button
-            type="button"
-            onClick={() => setStarted(true)}
-            className="relative mt-8 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 px-8 py-4 text-base font-black uppercase tracking-[0.02em] text-slate-950 shadow-[0_16px_38px_rgba(249,115,22,0.45)] transition hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
-          >
-            <LightningIcon />
-            Empezar ahora
-            <ArrowRightIcon className="h-5 w-5" />
-          </button>
-        </>
+        <button
+          type="button"
+          onClick={() => setStarted(true)}
+          className="relative mt-8 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 px-8 py-4 text-base font-black uppercase tracking-[0.02em] text-slate-950 shadow-[0_16px_38px_rgba(249,115,22,0.45)] transition hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
+        >
+          <LightningIcon />
+          Empezar ahora
+          <ArrowRightIcon className="h-5 w-5" />
+        </button>
       ) : (
         <form ref={formRef} className="mt-6" onSubmit={handleSubmit} acceptCharset="UTF-8">
           <div className="mb-6">
