@@ -12,7 +12,7 @@ const SPAN_CLASSES = [
 
 export default function Services() {
   return (
-    <section id="servicios" className="mx-auto max-w-7xl px-4 pb-3 pt-4 md:px-6 md:pb-3 md:pt-6" style={{ scrollMarginTop: "90px" }}>
+    <section id="servicios" className="mx-auto max-w-7xl px-4 pb-3 pt-1 md:px-6 md:pb-3 md:pt-2" style={{ scrollMarginTop: "90px" }}>
       <div className="mb-10 text-center">
         <h2 className="text-[30px] font-display uppercase leading-[0.96] tracking-[0.005em] text-slate-950 drop-shadow-[0_2px_10px_rgba(15,23,42,0.06)] sm:text-4xl md:text-6xl">
           DJ para <GradientText>todo tipo</GradientText>
