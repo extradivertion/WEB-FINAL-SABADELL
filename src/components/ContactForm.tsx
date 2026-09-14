@@ -77,7 +77,6 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
     pageLabel: pageConfig.city,
   });
 
-  const [started, setStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showValidation, setShowValidation] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -88,9 +87,14 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
   const currentValue = formData[step.field];
   const isStepValid = !step.required || currentValue.trim().length > 0;
 
+  // El formulario sale abierto de entrada, asi que NO enfocamos al montar:
+  // hacerlo arrastraria la pagina hasta el formulario nada mas cargar.
+  const hasNavigated = useRef(false);
+
   useEffect(() => {
-    if (started) fieldRef.current?.focus();
-  }, [currentStep, started]);
+    if (!hasNavigated.current) return;
+    fieldRef.current?.focus();
+  }, [currentStep]);
 
   const goNext = () => {
     if (!isStepValid) {
@@ -102,12 +106,14 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
       formRef.current?.requestSubmit();
       return;
     }
+    hasNavigated.current = true;
     setCurrentStep((s) => s + 1);
   };
 
   const goBack = () => {
     if (currentStep === 0) return;
     setShowValidation(false);
+    hasNavigated.current = true;
     setCurrentStep((s) => s - 1);
   };
 
@@ -118,6 +124,7 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
       if (isLastStep) {
         formRef.current?.requestSubmit();
       } else {
+        hasNavigated.current = true;
         setCurrentStep((s) => s + 1);
       }
     }, 200);
@@ -144,13 +151,13 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
             {/* Carril: qué te vamos a preguntar */}
             <aside className="lg:border-r lg:border-white/10 lg:pr-10">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-300">
-                {started ? "Tu progreso" : "Solo 3 bloques"}
+                Tu progreso
               </p>
 
               <ol className="mt-4 grid gap-3">
                 {PHASES.map((phase, index) => {
-                  const activa = started && getPhaseIndex(currentStep) === index;
-                  const hecha = started && getPhaseIndex(currentStep) > index;
+                  const activa = getPhaseIndex(currentStep) === index;
+                  const hecha = getPhaseIndex(currentStep) > index;
                   return (
                     <li key={phase.label} className="flex items-start gap-3">
                       <span
@@ -198,18 +205,7 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
                 </span>
               </h2>
 
-      {!started ? (
-        <button
-          type="button"
-          onClick={() => setStarted(true)}
-          className="relative mt-8 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 px-8 py-4 text-base font-black uppercase tracking-[0.02em] text-slate-950 shadow-[0_16px_38px_rgba(249,115,22,0.45)] transition hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300"
-        >
-          <LightningIcon />
-          Empezar ahora
-          <ArrowRightIcon className="h-5 w-5" />
-        </button>
-      ) : (
-        <form ref={formRef} className="mt-6" onSubmit={handleSubmit} acceptCharset="UTF-8">
+              <form ref={formRef} className="mt-6" onSubmit={handleSubmit} acceptCharset="UTF-8">
           <div className="mb-6">
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-sky-200/80">
               <span>
@@ -399,8 +395,7 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
               </p>
             </div>
           </details>
-        </form>
-      )}
+              </form>
             </div>
           </div>
         </div>
