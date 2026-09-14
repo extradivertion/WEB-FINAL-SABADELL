@@ -87,25 +87,30 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
     const ubicacion = formData.location || defaultLocation || "No indicada";
     const fecha = formData.eventDate ? formatearFecha(formData.eventDate) : "Sin fecha cerrada";
 
+    // FormSubmit sustituye los espacios del nombre del campo por guiones bajos
+    // ("Fecha del evento" se lee "Fecha_del_evento"), asi que cada etiqueta va
+    // en una sola palabra para que la tabla del correo quede limpia.
+    const origen = window.location.search.includes("gclid")
+      ? "Google Ads"
+      : document.referrer
+        ? document.referrer.replace(/^https?:\/\//, "").split("/")[0]
+        : "Directo";
+
     const payload = new FormData();
 
-    // Lo primero, lo que hace falta para llamar
-    payload.append("👤 Nombre", formData.name);
-    payload.append("📞 Teléfono", formData.phone);
-    payload.append("✉️ Email", formData.email || "No lo ha dejado");
-
-    // El evento
-    payload.append("🎉 Tipo de evento", formData.eventType);
-    payload.append("📅 Fecha", fecha);
-    payload.append("📍 Dónde se celebra", ubicacion);
-    payload.append("👥 Invitados aprox.", formData.guests || "No indicado");
-    payload.append("⏱️ Horas de servicio", formData.hours || "No indicado");
-    payload.append("🏠 Interior o exterior", formData.venueType || "No indicado");
-    payload.append("📝 Lo que nos cuenta", formData.details || "Nada más");
-
-    // Para saber de dónde viene la solicitud
-    payload.append("🌐 Página de la web", pageLabel);
-    payload.append("🔗 Enlace exacto", window.location.href);
+    payload.append("Nombre", formData.name);
+    payload.append("Teléfono", formData.phone);
+    payload.append("Email", formData.email || "No lo ha dejado");
+    payload.append("Evento", formData.eventType);
+    payload.append("Fecha", fecha);
+    payload.append("Lugar", ubicacion);
+    payload.append("Invitados", formData.guests || "No indicado");
+    payload.append("Duración", formData.hours || "No indicado");
+    payload.append("Espacio", formData.venueType || "No indicado");
+    payload.append("Detalles", formData.details || "Nada más");
+    payload.append("Página", pageLabel);
+    payload.append("Origen", origen);
+    payload.append("Enlace", window.location.href);
 
     // Asunto con lo esencial, para identificarlo desde la bandeja de entrada
     const asunto = [
@@ -122,7 +127,7 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
       // Solo si lo han dejado: un _replyto vacio hace fallar el envio.
       payload.append("_replyto", formData.email.trim());
     }
-    payload.append("_template", "box");
+    payload.append("_template", "table");
     payload.append("_captcha", "false");
     payload.append("_url", `${BUSINESS.siteUrl}/`);
 
