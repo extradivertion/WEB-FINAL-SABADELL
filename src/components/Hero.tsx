@@ -34,7 +34,7 @@ export default function Hero({ pageConfig }: { pageConfig: PageConfig }) {
       <div className="relative mx-auto w-full max-w-7xl px-4 pb-28 pt-14 md:px-6 md:pt-[clamp(1.5rem,5vh,3.5rem)] md:pb-[clamp(7rem,17vh,9rem)]">
         <div className="mx-auto max-w-5xl text-center">
           <h1
-            className="text-[38px] font-display uppercase leading-[0.92] tracking-[0.005em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] sm:text-6xl md:text-[clamp(3.25rem,min(7.6vw,13.5vh),7rem)]"
+            className="text-[46px] font-display uppercase leading-[0.9] tracking-[0.005em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] sm:text-6xl md:text-[clamp(3.25rem,min(7.6vw,13.5vh),7rem)]"
           >
             <span className="block">{pageConfig.heroLine1}</span>
             <span className="mt-2 block bg-gradient-to-r from-sky-100 via-cyan-200 to-sky-400 bg-clip-text text-transparent drop-shadow-[0_8px_26px_rgba(56,189,248,0.25)] md:mt-3">
@@ -42,7 +42,7 @@ export default function Hero({ pageConfig }: { pageConfig: PageConfig }) {
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-4xl text-xl font-semibold leading-9 text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-2xl md:mt-[clamp(0.75rem,2.5vh,1.75rem)] md:text-[clamp(1.25rem,min(2.4vw,3.7vh),2.15rem)] md:leading-tight">
+          <p className="mx-auto mt-4 max-w-4xl text-lg font-semibold leading-7 text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:text-2xl md:mt-[clamp(0.75rem,2.5vh,1.75rem)] md:text-[clamp(1.25rem,min(2.4vw,3.7vh),2.15rem)] md:leading-tight">
             {subtitleTail ? (
               <>
                 <span className="text-sky-200/90">

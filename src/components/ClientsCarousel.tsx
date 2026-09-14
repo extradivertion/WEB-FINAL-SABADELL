@@ -51,7 +51,7 @@ function ClientLogo({ client }: { client: Client }) {
 export default function ClientsCarousel() {
   return (
     <section
-      className="relative z-10 -mt-5 w-full bg-white pb-6 pt-5 md:-mt-6 md:pb-8 md:pt-6"
+      className="relative z-10 -mt-5 w-full bg-white pb-6 pt-1 md:-mt-6 md:pb-8 md:pt-2"
       aria-label="Marcas y espacios donde ha pinchado Extradivertion"
     >
       {/*
