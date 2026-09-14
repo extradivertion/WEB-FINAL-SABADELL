@@ -1,5 +1,5 @@
 import { EVENT_SERVICE_CARDS, type ServiceCard } from "../data/content";
-import { ArrowRightIcon, GradientText } from "./ui";
+import { ArrowRightIcon, DiscIcon, GradientText } from "./ui";
 
 // Bento asimétrico: la primera ocupa dos columnas, el resto una.
 const SPAN_CLASSES = [
@@ -12,12 +12,23 @@ const SPAN_CLASSES = [
 
 export default function Services() {
   return (
-    <section id="servicios" className="mx-auto max-w-7xl px-4 pb-3 pt-1 md:px-6 md:pb-3 md:pt-2" style={{ scrollMarginTop: "90px" }}>
+    <section id="servicios" className="mx-auto max-w-7xl px-4 pb-3 pt-3 md:px-6 md:pb-3 md:pt-4" style={{ scrollMarginTop: "90px" }}>
+      {/* Mismo encabezado que zonas, reseñas y FAQ: etiqueta, titular y entradilla */}
       <div className="mb-10 text-center">
-        <h2 className="text-[30px] font-display uppercase leading-[0.96] tracking-[0.005em] text-slate-950 drop-shadow-[0_2px_10px_rgba(15,23,42,0.06)] sm:text-4xl md:text-6xl">
+        <p className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-sky-700">
+          <DiscIcon className="h-3.5 w-3.5" />
+          Nuestros servicios
+        </p>
+
+        <h2 className="mt-4 text-[30px] font-display uppercase leading-[0.96] tracking-[0.005em] text-slate-950 drop-shadow-[0_2px_10px_rgba(15,23,42,0.06)] sm:text-4xl md:text-6xl">
           DJ para <GradientText>todo tipo</GradientText>
           <span className="block">de eventos</span>
         </h2>
+
+        <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-slate-600 md:text-lg md:leading-8">
+          Cada evento pide una música distinta. Ponemos el equipo, las luces y una sesión pensada para tu gente,
+          sea una boda, una fiesta de empresa o una noche de local.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
