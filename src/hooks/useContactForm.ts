@@ -28,6 +28,34 @@ const emptyForm = (location: string): ContactFormData => ({
   details: "",
 });
 
+/**
+ * El campo <input type="date"> entrega la fecha como "2026-10-15". Se
+ * construye el Date con los tres numeros por separado y no con `new Date(iso)`,
+ * porque esa forma interpreta la cadena como UTC y en España adelanta o
+ * atrasa un dia segun la hora.
+ */
+const formatearFecha = (iso: string) => {
+  const [anio, mes, dia] = iso.split("-").map(Number);
+  if (!anio || !mes || !dia) return iso;
+
+  const fecha = new Date(anio, mes - 1, dia);
+  const largo = fecha.toLocaleDateString("es-ES", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  const corto = `${String(dia).padStart(2, "0")}/${String(mes).padStart(2, "0")}/${anio}`;
+
+  return `${largo.charAt(0).toUpperCase()}${largo.slice(1)} — ${corto}`;
+};
+
+const fechaCorta = (iso: string) => {
+  const [anio, mes, dia] = iso.split("-").map(Number);
+  if (!anio || !mes || !dia) return "";
+  return `${String(dia).padStart(2, "0")}/${String(mes).padStart(2, "0")}/${anio}`;
+};
+
 type UseContactFormOptions = {
   defaultLocation: string;
   pageLabel: string;
@@ -56,25 +84,45 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
     setFormError("");
     setIsSubmitting(true);
 
+    const ubicacion = formData.location || defaultLocation || "No indicada";
+    const fecha = formData.eventDate ? formatearFecha(formData.eventDate) : "Sin fecha cerrada";
+
     const payload = new FormData();
-    payload.append("Nombre", formData.name);
-    payload.append("Teléfono", formData.phone);
-    payload.append("Email", formData.email || "No indicado");
-    payload.append("Tipo de evento", formData.eventType);
-    payload.append("Fecha del evento", formData.eventDate || "No indicada");
-    payload.append("Ubicación", formData.location || defaultLocation || "No indicada");
-    payload.append("Página local", pageLabel);
-    payload.append("Nº de personas aprox.", formData.guests || "No indicado");
-    payload.append("Horas de servicio", formData.hours || "No indicado");
-    payload.append("Interior o exterior", formData.venueType || "No indicado");
-    payload.append("Detalles del evento", formData.details || "No indicado");
-    payload.append("Página de origen", window.location.href);
-    payload.append("_subject", "Nueva solicitud de presupuesto · Extradivertion");
+
+    // Lo primero, lo que hace falta para llamar
+    payload.append("👤 Nombre", formData.name);
+    payload.append("📞 Teléfono", formData.phone);
+    payload.append("✉️ Email", formData.email || "No lo ha dejado");
+
+    // El evento
+    payload.append("🎉 Tipo de evento", formData.eventType);
+    payload.append("📅 Fecha", fecha);
+    payload.append("📍 Dónde se celebra", ubicacion);
+    payload.append("👥 Invitados aprox.", formData.guests || "No indicado");
+    payload.append("⏱️ Horas de servicio", formData.hours || "No indicado");
+    payload.append("🏠 Interior o exterior", formData.venueType || "No indicado");
+    payload.append("📝 Lo que nos cuenta", formData.details || "Nada más");
+
+    // Para saber de dónde viene la solicitud
+    payload.append("🌐 Página de la web", pageLabel);
+    payload.append("🔗 Enlace exacto", window.location.href);
+
+    // Asunto con lo esencial, para identificarlo desde la bandeja de entrada
+    const asunto = [
+      formData.eventType || "Evento",
+      ubicacion !== "No indicada" ? `en ${ubicacion}` : "",
+      formData.eventDate ? `· ${fechaCorta(formData.eventDate)}` : "",
+      `· ${formData.name}`,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    payload.append("_subject", `Presupuesto: ${asunto}`);
     if (formData.email.trim()) {
       // Solo si lo han dejado: un _replyto vacio hace fallar el envio.
       payload.append("_replyto", formData.email.trim());
     }
-    payload.append("_template", "table");
+    payload.append("_template", "box");
     payload.append("_captcha", "false");
     payload.append("_url", `${BUSINESS.siteUrl}/`);
 
