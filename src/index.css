@@ -31,14 +31,14 @@ body {
 }
 
 .animate-clients-scroll {
-  animation: clients-scroll 13s linear infinite;
+  animation: clients-scroll 18s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
 }
 
 @media (min-width: 768px) {
   .animate-clients-scroll {
-    animation-duration: 16s;
+    animation-duration: 22s;
   }
 }
 

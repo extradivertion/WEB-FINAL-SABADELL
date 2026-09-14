@@ -4,10 +4,10 @@ type LogoSize = "sm" | "md" | "lg" | "xl";
 type Client = { name: string; logo: string | null; size?: LogoSize };
 
 const SIZE_CLASSES: Record<LogoSize, string> = {
-  sm: "h-10 md:h-12",
-  md: "h-12 md:h-14",
-  lg: "h-16 md:h-20",
-  xl: "h-20 md:h-24",
+  sm: "h-14 md:h-16",
+  md: "h-16 md:h-20",
+  lg: "h-20 md:h-28",
+  xl: "h-24 md:h-32",
 };
 
 const CLIENTS: Client[] = [
@@ -41,7 +41,7 @@ function ClientLogo({ client }: { client: Client }) {
     <img
       src={client.logo}
       alt={client.name}
-      className={`w-auto max-h-[14vh] shrink-0 object-contain mix-blend-multiply transition hover:scale-105 ${SIZE_CLASSES[client.size ?? "md"]}`}
+      className={`w-auto max-h-[20vh] shrink-0 object-contain mix-blend-multiply transition hover:scale-105 ${SIZE_CLASSES[client.size ?? "md"]}`}
       decoding="async"
       onError={() => setFailed(true)}
     />
@@ -51,7 +51,7 @@ function ClientLogo({ client }: { client: Client }) {
 export default function ClientsCarousel() {
   return (
     <section
-      className="relative z-10 -mt-5 w-full bg-white pb-5 pt-3 md:-mt-6 md:pb-7 md:pt-3"
+      className="relative z-10 -mt-5 w-full bg-white pb-6 pt-5 md:-mt-6 md:pb-8 md:pt-6"
       aria-label="Marcas y espacios donde ha pinchado Extradivertion"
     >
       {/*
@@ -76,7 +76,7 @@ export default function ClientsCarousel() {
           {Array.from({ length: COPIES }, (_, copy) => (
             <ul
               key={copy}
-              className="flex shrink-0 list-none items-center gap-8 pr-8 md:gap-12 md:pr-12"
+              className="flex shrink-0 list-none items-center gap-10 pr-10 md:gap-16 md:pr-16"
               aria-hidden={copy > 0}
             >
               {CLIENTS.map((client) => (
@@ -101,7 +101,7 @@ export default function ClientsCarousel() {
 
       {/* Fundido de salida al gris de la pagina, por debajo de los logos */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-5 bg-gradient-to-b from-white to-slate-100 md:h-7"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-b from-white to-slate-100 md:h-8"
         aria-hidden="true"
       />
     </section>
