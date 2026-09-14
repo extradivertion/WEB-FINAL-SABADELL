@@ -5,6 +5,7 @@ import { reportConversionAndRedirect } from "./useGoogleAds";
 export type ContactFormData = {
   name: string;
   phone: string;
+  email: string;
   eventType: string;
   eventDate: string;
   location: string;
@@ -17,6 +18,7 @@ export type ContactFormData = {
 const emptyForm = (location: string): ContactFormData => ({
   name: "",
   phone: "",
+  email: "",
   eventType: "",
   eventDate: "",
   location,
@@ -57,6 +59,7 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
     const payload = new FormData();
     payload.append("Nombre", formData.name);
     payload.append("Teléfono", formData.phone);
+    payload.append("Email", formData.email || "No indicado");
     payload.append("Tipo de evento", formData.eventType);
     payload.append("Fecha del evento", formData.eventDate || "No indicada");
     payload.append("Ubicación", formData.location || defaultLocation || "No indicada");
@@ -67,6 +70,10 @@ export function useContactForm({ defaultLocation, pageLabel }: UseContactFormOpt
     payload.append("Detalles del evento", formData.details || "No indicado");
     payload.append("Página de origen", window.location.href);
     payload.append("_subject", "Nueva solicitud de presupuesto · Extradivertion");
+    if (formData.email.trim()) {
+      // Solo si lo han dejado: un _replyto vacio hace fallar el envio.
+      payload.append("_replyto", formData.email.trim());
+    }
     payload.append("_template", "table");
     payload.append("_captcha", "false");
     payload.append("_url", `${BUSINESS.siteUrl}/`);

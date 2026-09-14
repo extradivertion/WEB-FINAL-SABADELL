@@ -48,6 +48,7 @@ const HOURS_OPTIONS = ["2 horas", "3 horas", "4 horas", "5 horas", "6 horas", "M
 const STEPS: Step[] = [
   { kind: "field", field: "name", question: "¿Cuál es tu nombre?", required: true, type: "text", placeholder: "ej: Álvaro Martínez", autoComplete: "name" },
   { kind: "field", field: "phone", question: "¿Cuál es tu teléfono?", required: true, type: "tel", placeholder: "ej: 644 353 133", autoComplete: "tel" },
+  { kind: "field", field: "email", question: "¿Y tu email? (opcional)", required: false, type: "email", placeholder: "ej: nombre@email.com", autoComplete: "email" },
   { kind: "choice", field: "eventType", question: "¿Qué tipo de evento es?", required: true, options: EVENT_TYPE_OPTIONS },
   { kind: "field", field: "location", question: "¿Dónde se celebra el evento?", required: true, type: "text", placeholder: "ej: Barcelona, Sabadell...", autoComplete: "address-level2" },
   { kind: "field", field: "eventDate", question: "¿Qué fecha tiene el evento?", required: false, type: "date" },
@@ -59,11 +60,11 @@ const STEPS: Step[] = [
 
 const START_POINTS = ["Sin compromiso", "2 minutos", "Te respondemos hoy"];
 
-// Agrupa los 9 pasos en 3 fases para el carril lateral
+// Agrupa los 10 pasos en 3 fases para el carril lateral
 const PHASES = [
-  { label: "Tus datos", detail: "Nombre y teléfono", upTo: 1 },
-  { label: "El evento", detail: "Tipo, sitio, fecha e invitados", upTo: 5 },
-  { label: "Detalles", detail: "Horas, espacio y extras", upTo: 8 },
+  { label: "Tus datos", detail: "Nombre, teléfono y email", upTo: 2 },
+  { label: "El evento", detail: "Tipo, sitio, fecha e invitados", upTo: 6 },
+  { label: "Detalles", detail: "Horas, espacio y extras", upTo: 9 },
 ];
 
 const getPhaseIndex = (step: number) => PHASES.findIndex((phase) => step <= phase.upTo);
