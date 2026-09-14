@@ -148,8 +148,10 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
           <div className="pointer-events-none absolute -bottom-28 -left-24 -z-10 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
 
           <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
-            {/* Carril: qué te vamos a preguntar */}
-            <aside className="lg:border-r lg:border-white/10 lg:pr-10">
+            {/* Carril: qué te vamos a preguntar. En móvil baja por debajo del
+                formulario, para que al saltar aquí desde "Pedir presupuesto"
+                se caiga directamente en la pregunta y no en las fases. */}
+            <aside className="order-2 lg:order-1 lg:border-r lg:border-white/10 lg:pr-10">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-300">
                 Tu progreso
               </p>
@@ -193,7 +195,7 @@ export default function ContactForm({ pageConfig }: { pageConfig: PageConfig }) 
             </aside>
 
             {/* Contenido */}
-            <div className="min-w-0">
+            <div className="order-1 min-w-0 lg:order-2">
               <p className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] text-slate-950">
                 <LightningIcon className="h-3.5 w-3.5" />
                 Respuesta en menos de 1 hora
