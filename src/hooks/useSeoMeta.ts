@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { BUSINESS, getCanonicalUrl } from "../data/business";
 import type { PageConfig } from "../data/pageConfigs";
 import type { FaqItem } from "../data/content";
+import { buildSeoData } from "../data/seo";
 
 const upsertMeta = (selector: string, attributes: Record<string, string>) => {
   let element = document.head.querySelector(selector) as HTMLMetaElement | null;
@@ -22,114 +22,29 @@ const upsertLink = (selector: string, attributes: Record<string, string>) => {
 };
 
 export function useSeoMeta(pageConfig: PageConfig, faqs: FaqItem[], isThankYouPage: boolean) {
-  const canonicalUrl = getCanonicalUrl(pageConfig.path);
-
   useEffect(() => {
-    document.title = isThankYouPage ? "Solicitud enviada | Extradivertion" : pageConfig.seoTitle;
+    const seo = buildSeoData(pageConfig, faqs, isThankYouPage);
 
-    upsertMeta('meta[name="description"]', {
-      name: "description",
-      content: isThankYouPage
-        ? "Gracias por tu solicitud de presupuesto. Te contactaremos lo antes posible."
-        : pageConfig.seoDescription,
-    });
+    document.title = seo.title;
 
-    upsertMeta('meta[name="robots"]', {
-      name: "robots",
-      content: isThankYouPage ? "noindex, nofollow" : "index, follow",
-    });
+    upsertMeta('meta[name="description"]', { name: "description", content: seo.description });
+    upsertMeta('meta[name="robots"]', { name: "robots", content: seo.robots });
 
-    upsertMeta('meta[property="og:title"]', {
-      property: "og:title",
-      content: pageConfig.seoTitle,
-    });
-
-    upsertMeta('meta[property="og:description"]', {
-      property: "og:description",
-      content: pageConfig.ogDescription,
-    });
-
+    upsertMeta('meta[property="og:title"]', { property: "og:title", content: seo.ogTitle });
+    upsertMeta('meta[property="og:description"]', { property: "og:description", content: seo.ogDescription });
     upsertMeta('meta[property="og:type"]', { property: "og:type", content: "website" });
-    upsertMeta('meta[property="og:url"]', { property: "og:url", content: canonicalUrl });
-    upsertMeta('meta[property="og:image"]', {
-      property: "og:image",
-      content: `${BUSINESS.siteUrl}${pageConfig.heroImages[0]}`,
-    });
+    upsertMeta('meta[property="og:url"]', { property: "og:url", content: seo.canonicalUrl });
+    upsertMeta('meta[property="og:image"]', { property: "og:image", content: seo.ogImage });
 
-    upsertMeta('meta[name="twitter:card"]', {
-      name: "twitter:card",
-      content: "summary_large_image",
-    });
-    upsertMeta('meta[name="twitter:title"]', { name: "twitter:title", content: pageConfig.seoTitle });
-    upsertMeta('meta[name="twitter:description"]', {
-      name: "twitter:description",
-      content: pageConfig.ogDescription,
-    });
+    upsertMeta('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
+    upsertMeta('meta[name="twitter:title"]', { name: "twitter:title", content: seo.ogTitle });
+    upsertMeta('meta[name="twitter:description"]', { name: "twitter:description", content: seo.ogDescription });
 
-    upsertLink('link[rel="canonical"]', { rel: "canonical", href: canonicalUrl });
+    upsertLink('link[rel="canonical"]', { rel: "canonical", href: seo.canonicalUrl });
 
-    if (isThankYouPage) {
+    if (!seo.schema) {
       return;
     }
-
-    const localBusinessSchema = {
-      "@type": ["LocalBusiness", "EntertainmentBusiness"],
-      "@id": `${canonicalUrl}#extradivertion`,
-      name: BUSINESS.name,
-      url: canonicalUrl,
-      image: `${BUSINESS.siteUrl}/logo-sobre-nosotros.png`,
-      email: BUSINESS.email,
-      telephone: BUSINESS.phoneHref,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Sabadell",
-        addressRegion: "Barcelona",
-        addressCountry: "ES",
-      },
-      areaServed: pageConfig.areaServed,
-      description: pageConfig.seoDescription,
-      priceRange: "€€",
-      makesOffer: [
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: `${pageConfig.heroLine1} ${pageConfig.heroLine2}` },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "DJ para bodas en Barcelona" },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "DJ con sonido e iluminación para eventos de empresa" },
-        },
-      ],
-    };
-
-    const faqSchema = {
-      "@type": "FAQPage",
-      "@id": `${canonicalUrl}#faq`,
-      mainEntity: faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.question,
-        acceptedAnswer: { "@type": "Answer", text: faq.answer },
-      })),
-    };
-
-    const breadcrumbSchema = {
-      "@type": "BreadcrumbList",
-      "@id": `${canonicalUrl}#breadcrumb`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Inicio", item: `${BUSINESS.siteUrl}/` },
-        ...(pageConfig.path === "/"
-          ? []
-          : [{ "@type": "ListItem", position: 2, name: pageConfig.seoTitle.split("|")[0].trim(), item: canonicalUrl }]),
-      ],
-    };
-
-    const schema = {
-      "@context": "https://schema.org",
-      "@graph": [localBusinessSchema, faqSchema, breadcrumbSchema],
-    };
 
     let schemaScript = document.getElementById("extradivertion-schema");
     if (!schemaScript) {
@@ -138,6 +53,6 @@ export function useSeoMeta(pageConfig: PageConfig, faqs: FaqItem[], isThankYouPa
       schemaScript.setAttribute("type", "application/ld+json");
       document.head.appendChild(schemaScript);
     }
-    schemaScript.textContent = JSON.stringify(schema);
-  }, [canonicalUrl, pageConfig, faqs, isThankYouPage]);
+    schemaScript.textContent = JSON.stringify(seo.schema);
+  }, [pageConfig, faqs, isThankYouPage]);
 }

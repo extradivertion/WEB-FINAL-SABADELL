@@ -23,8 +23,9 @@ import Footer from "./components/Footer";
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import ThankYouPage from "./components/ThankYouPage";
 
-export default function App() {
-  const pathname = window.location.pathname.replace(/\/$/, "") || "/";
+// La ruta llega como prop para poder pintar cada página en el build (scripts/prerender.mjs).
+export default function App({ path }: { path: string }) {
+  const pathname = path.replace(/\/$/, "") || "/";
   const isThankYouPage = pathname === BUSINESS.thankYouPath;
 
   // Memoizados para que el efecto de useSeoMeta no se vuelva a ejecutar en cada render.

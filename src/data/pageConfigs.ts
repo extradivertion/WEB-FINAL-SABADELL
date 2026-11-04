@@ -34,9 +34,9 @@ export const pageConfigs: PageConfig[] = [
     heroSubtitle:
       "Presupuesto en menos de 1 hora. Rápido, sencillo y con toda la profesionalidad que tu evento merece.",
     heroImages: ["/dj-home-blue.jpg", "/dj-eventos-barcelona-montaje-iluminacion.jpg"],
-    seoTitle: "DJ para eventos en Barcelona | Extradivertion",
+    seoTitle: "DJ en Barcelona para fiestas, bodas y cumpleaños | Extradivertion",
     seoDescription:
-      "DJ para eventos en Barcelona: bodas, cumpleaños, fiestas privadas y empresa. Open format, sonido e iluminación profesional. Presupuesto en 24h.",
+      "DJ con sonido e iluminación para fiestas privadas, cumpleaños, bodas y empresas en Barcelona. Más de 40 reseñas de 5 estrellas. Presupuesto por WhatsApp sin compromiso.",
     ogDescription:
       "DJ para eventos en Barcelona con música comercial y house, sonido, iluminación y montaje para celebraciones a medida.",
     zoneHeadingMain: "Servicio DJ en Barcelona",
@@ -393,6 +393,37 @@ export const pageConfigs: PageConfig[] = [
     travelFaqQuestion: "¿Trabajáis en casas privadas y locales reservados?",
     travelFaqAnswer:
       "Sí. Trabajamos en casas privadas, locales, salas privadas, terrazas y espacios para eventos en Barcelona y alrededores. Antes del evento confirmamos acceso, horarios y potencia disponible.",
+  },
+  {
+    path: "/dj-cumpleanos-barcelona",
+    navLabel: "Cumpleaños",
+    city: "Barcelona",
+    cityShort: "Cumple",
+    heroLine1: "DJ para cumpleaños",
+    heroLine2: "Barcelona",
+    heroSubtitle:
+      "Presupuesto en menos de 1 hora. Música, sonido y luces para que tu cumpleaños sea una fiesta de verdad.",
+    heroImages: ["/dj-cumpleanos-barcelona.jpg", "/dj-home-blue.jpg"],
+    seoTitle: "DJ para cumpleaños en Barcelona | Extradivertion",
+    seoDescription:
+      "DJ para cumpleaños en Barcelona: 18, 30, 40 o 50 años. Sonido, luces y música a vuestro gusto. Presupuesto en menos de 1 hora y sin compromiso.",
+    ogDescription:
+      "DJ para cumpleaños en Barcelona con sonido, iluminación y música adaptada a la edad y al ambiente de la fiesta.",
+    zoneHeadingMain: "DJ para cumpleaños",
+    zoneHeadingHighlight: "en Barcelona",
+    serviceIntro:
+      "Servicio de DJ para cumpleaños en Barcelona y alrededores: 18 años, 30, 40, 50 o la edad que se celebre. Llevamos el sonido, las luces y la cabina, y adaptamos la música a la edad y al ambiente que buscas.",
+    zoneParagraph1:
+      "Antes del cumpleaños hablamos contigo de los estilos, las canciones que no pueden faltar y las que mejor evitar. Una fiesta de 18 no suena igual que una de 50: preparamos la sesión pensando en tus invitados, desde la cena o el picoteo hasta que la pista se llena.",
+    zoneParagraph2:
+      "Vamos con todo el equipo a tu casa, patio, terraza, finca, masía, restaurante o local en Barcelona, el Vallès Occidental y alrededores. No alquilamos salas: el espacio lo pones tú y nosotros nos encargamos del montaje, el sonido y el ambiente.",
+    formLocation: "Barcelona",
+    footerLocationText: "Barcelona · Cumpleaños · Vallès Occidental",
+    areaServed: ["Barcelona", "Sabadell", "Terrassa", "Sant Cugat del Vallès", "Vallès Occidental"],
+    pricingFaqQuestion: "¿Cuánto cuesta un DJ para un cumpleaños en Barcelona?",
+    travelFaqQuestion: "¿Podéis venir a casa, a una finca o a un local?",
+    travelFaqAnswer:
+      "Sí. Montamos el equipo en casas, patios, terrazas, fincas, masías, restaurantes y locales de Barcelona y alrededores. No alquilamos salas. Antes de la fiesta confirmamos acceso, horarios, enchufes disponibles y si hay límite de volumen por los vecinos.",
   },
   {
     path: "/dj-bodas-barcelona",

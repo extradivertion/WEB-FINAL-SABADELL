@@ -17,6 +17,7 @@ export const NAV_ZONES: { name: string; path: string }[] = [
 export const NAV_SERVICES: { name: string; path: string }[] = [
   { name: "Bodas", path: "/dj-bodas-barcelona" },
   { name: "Fiestas privadas", path: "/dj-fiestas-privadas-barcelona" },
+  { name: "Cumpleaños", path: "/dj-cumpleanos-barcelona" },
   { name: "Eventos de empresa", path: "/dj-eventos-empresa-barcelona" },
 ];
 
@@ -47,7 +48,7 @@ export const EVENT_SERVICE_CARDS: ServiceCard[] = [
     description:
       "Sesiones ajustadas a la edad y al ambiente que busques, del rato tranquilo a la pista llena.",
     image: "/dj-cumpleanos-barcelona.jpg",
-    link: "#formulario",
+    link: "/dj-cumpleanos-barcelona",
   },
   {
     title: "Eventos corporativos",
