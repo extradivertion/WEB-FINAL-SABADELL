@@ -151,7 +151,7 @@ export default function Footer({ pageConfig }: { pageConfig: PageConfig }) {
           </div>
 
           <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-slate-400 md:flex-row md:items-center md:justify-between">
-            <p>© {new Date().getFullYear()} Extradivertion. Todos los derechos reservados.</p>
+            <p suppressHydrationWarning>© {new Date().getFullYear()} Extradivertion. Todos los derechos reservados.</p>
             <p>DJ para bodas y eventos en Barcelona, Sabadell, Terrassa y Vallès Occidental.</p>
           </div>
         </div>

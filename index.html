@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <meta name="theme-color" content="#020617" />
+
+    <link rel="icon" type="image/png" href="/logo-sobre-nosotros.png" />
+    <link rel="apple-touch-icon" href="/logo-sobre-nosotros.png" />
+
     <!--
-      Meta por defecto (home). En el resto de rutas las sobrescribe useSeoMeta.ts,
-      que además inyecta el JSON-LD por página. No añadir aquí structured data:
-      se duplicaría con el del hook.
+      Meta por defecto (solo para dev y el 404). En el build, scripts/prerender.mjs
+      sustituye todo el bloque seo:start/seo:end por el título, la descripción, el
+      canonical y el JSON-LD de cada ruta (src/data/seo.ts). No añadir aquí
+      structured data: se duplicaría con el del prerender.
     -->
+    <!-- seo:start -->
     <title>DJ para eventos en Barcelona | Extradivertion</title>
     <meta
       name="description"
@@ -16,11 +23,6 @@
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://extradivertion.com/" />
-    <meta name="theme-color" content="#020617" />
-
-    <link rel="icon" type="image/png" href="/logo-sobre-nosotros.png" />
-    <link rel="apple-touch-icon" href="/logo-sobre-nosotros.png" />
-
     <meta property="og:title" content="DJ para eventos en Barcelona | Extradivertion" />
     <meta
       property="og:description"
@@ -38,6 +40,7 @@
       name="twitter:description"
       content="Servicio de DJ para bodas, eventos privados, empresas, discotecas y celebraciones en Barcelona y Vallès Occidental."
     />
+    <!-- seo:end -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
